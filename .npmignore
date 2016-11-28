@@ -2,3 +2,4 @@
 xcuserdata
 build/
 *.iml
+npm-debug.log
