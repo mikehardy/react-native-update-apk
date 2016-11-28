@@ -1,6 +1,6 @@
 {
   "name": "react-native-appupdate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Update apk and update from app store in React Native",
   "main": "index.js",
   "repository": {
@@ -19,7 +19,7 @@
   "author": "parryworld",
   "license": "MIT",
   "dependencies": {
-    "react-native-fs": "^2.0.0"
+    "react-native-fs": "^2.0.1-rc.2"
   },
   "bugs": {
     "url": "https://github.com/parryworld/react-native-appupdate/issues"
