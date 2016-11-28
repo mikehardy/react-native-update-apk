@@ -1,0 +1,27 @@
+{
+  "name": "react-native-app-update",
+  "version": "1.0.0",
+  "description": "Update apk and update from app store in React Native",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parryworld/react-native-app-update.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "ios",
+    "android",
+    "update",
+    "apk"
+  ],
+  "author": "parryworld",
+  "license": "MIT",
+  "dependencies": {
+    "react-native-fs": "^2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/parryworld/react-native-app-update/issues"
+  },
+  "homepage": "https://github.com/parryworld/react-native-app-update"
+}
