@@ -1,6 +1,6 @@
 {
   "name": "react-native-appupdate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Update apk and update from app store in React Native",
   "main": "index.js",
   "repository": {

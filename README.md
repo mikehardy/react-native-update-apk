@@ -32,7 +32,7 @@ const appUpdate = new AppUpdate({
   downloadApkStart: () => { console.log("Start") },
   downloadApkProgress: (progress) => { console.log(`Downloading ${progress}%...`) },
   downloadApkEnd: () => { console.log("End") },
-  onError: () => { console.log("Error") }
+  onError: () => { console.log("downloadApkError") }
 });
 appUpdate.checkUpdate();
 ```

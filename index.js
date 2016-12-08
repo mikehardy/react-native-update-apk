@@ -73,7 +73,7 @@ class AppUpdate {
 
       jobId = -1;
     }).catch((err) => {
-      this.getVersionError(err);
+      this.downloadApkError(err);
 
       jobId = -1;
     });
@@ -108,6 +108,10 @@ class AppUpdate {
 
   getVersionError(err) {
     console.log("getVersionError", err);
+  }
+
+  downloadApkError(err) {
+    console.log("downloadApkError", err);
     this.options.onError && this.options.onError();
   }
 
