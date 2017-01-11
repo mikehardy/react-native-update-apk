@@ -29,6 +29,12 @@ const appUpdate = new AppUpdate({
       ]
     );
   },
+  forceUpdateApp: () => {
+    console.log("Force update will start")
+  },
+  notNeedUpdateApp: () => {
+    console.log("App is up to date")
+  },
   downloadApkStart: () => { console.log("Start") },
   downloadApkProgress: (progress) => { console.log(`Downloading ${progress}%...`) },
   downloadApkEnd: () => { console.log("End") },
@@ -41,7 +47,8 @@ appUpdate.checkUpdate();
 // version.json
 {
   "versionName":"1.0.0",
-  "apkUrl":"https://github.com/NewApp.apk"
+  "apkUrl":"https://github.com/NewApp.apk",
+  "forceUpdate": false
 }
 ```
 ## Third Library
