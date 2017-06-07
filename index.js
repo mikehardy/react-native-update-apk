@@ -110,20 +110,13 @@ class AppUpdate {
     const version = result.version;
     const trackViewUrl = result.trackViewUrl;
     if (version !== RNAppUpdate.versionName) {
-      if (remote.forceUpdate) {
-        if(this.options.forceUpdateApp) {
-          this.options.forceUpdateApp();
-        }
-        RNAppUpdate.installFromAppStore(trackViewUrl);
-      } else if (this.options.needUpdateApp) {
+      if (this.options.needUpdateApp) {
         this.options.needUpdateApp((isUpdate) => {
           if (isUpdate) {
             RNAppUpdate.installFromAppStore(trackViewUrl);
           }
         });
       }
-    } else if(this.options.notNeedUpdateApp) {
-      this.options.notNeedUpdateApp();
     }
   }
 
