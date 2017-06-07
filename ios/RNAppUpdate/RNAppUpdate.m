@@ -6,7 +6,7 @@
 //  Copyright © 2016年 parryworld. All rights reserved.
 //
 
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 #import "RNAppUpdate.h"
 
 @interface RNAppUpdate() {
@@ -37,7 +37,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(installFromAppStore:(nonnull NSString *)trackViewURL) {
     UIApplication *application = [UIApplication sharedApplication];
-    [application openURL:[NSURL URLWithString:trackViewURL]];
+    [application openURL:[NSURL URLWithString:trackViewURL] options:@{} completionHandler:nil];
 }
 
 @end

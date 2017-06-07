@@ -5,7 +5,13 @@ Update apk and update from app store in React Native.
 ```bash
 npm install react-native-appupdate --save
 ```
-Adding automatically with react-native link
+**Note: If your react-native version < 0.40**
+
+```bash
+npm install react-native-appupdate@1.0.5 --save
+```
+
+adding automatically with react-native link
 
 ```bash
 react-native link react-native-appupdate
