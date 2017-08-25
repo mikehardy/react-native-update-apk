@@ -35,9 +35,14 @@ RCT_EXPORT_MODULE();
              };
 }
 
-RCT_EXPORT_METHOD(installFromAppStore:(nonnull NSString *)trackViewURL) {
-    UIApplication *application = [UIApplication sharedApplication];
-    [application openURL:[NSURL URLWithString:trackViewURL] options:@{} completionHandler:nil];
+RCT_EXPORT_METHOD(installFromAppStore:(nonnull NSString *)trackViewURL) {UIApplication *application = [UIApplication sharedApplication];   
+    NSURL *URL = [NSURL URLWithString:trackViewURL];
+    
+    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [application openURL:[NSURL URLWithString:trackViewURL] options:@{} completionHandler:nil];
+    } else {
+        BOOL success = [application openURL:URL];
+    }
 }
 
 @end
