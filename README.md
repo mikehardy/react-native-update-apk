@@ -1,34 +1,29 @@
-# React Native AppUpdate
-Update apk and update from app store in React Native.
+# React Native Update APK
+Easily check for new APKs and install them in React Native.
 
 ## Installation
 ```bash
-npm install react-native-appupdate --save
-```
-**Note: If your react-native version < 0.40**
-
-```bash
-npm install react-native-appupdate@1.0.5 --save
+npm install rn-update-apk --save
 ```
 
-adding automatically with react-native link
+Linking automatically with react-native link
 
 ```bash
-react-native link react-native-appupdate
+react-native link rn-update-apk
 react-native link react-native-fs
 ```
 ## Usage
 ```javascript
 import { Alert } from 'react-native';
-import AppUpdate from 'react-native-appupdate';
+import updateApk from 'rn-update-apk';
 
-const appUpdate = new AppUpdate({
-  iosAppId: '123456',
-  apkVersionUrl: 'https://github.com/version.json',
+const updateApk = new updateApk({
+  iosAppId: '123456', // iOS must install from app store, but we can point the user there
+  apkVersionUrl: 'https://github.com/your-github-name/version.json',
   needUpdateApp: (needUpdate) => {
     Alert.alert(
-      'Update tip',
-      'Finding new version, do you want to update?',
+      'Update Available',
+      'New version released, do you want to update?',
       [
         {text: 'Cancel', onPress: () => {}},
         {text: 'Update', onPress: () => needUpdate(true)}
@@ -46,7 +41,7 @@ const appUpdate = new AppUpdate({
   downloadApkEnd: () => { console.log("End") },
   onError: () => { console.log("downloadApkError") }
 });
-appUpdate.checkUpdate();
+updateApk.checkUpdate();
 ```
 
 ```javascript
@@ -57,5 +52,5 @@ appUpdate.checkUpdate();
   "forceUpdate": false
 }
 ```
-## Third Library
+## Library Dependency
 * react-native-fs

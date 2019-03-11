@@ -1,21 +1,21 @@
 //
-//  RNAppUpdate.m
-//  RNAppUpdate
+//  RNUpdateAPK.m
+//  RNUpdateAPK
 //
 //  Created by parryworld on 2016/11/18.
 //  Copyright © 2016年 parryworld. All rights reserved.
 //
 
 #import <React/RCTBridge.h>
-#import "RNAppUpdate.h"
+#import "RNUpdateAPK.h"
 
-@interface RNAppUpdate() {
+@interface RNUpdateAPK() {
     NSString *versionName;
     NSString *versionCode;
 }
 @end
 
-@implementation RNAppUpdate
+@implementation RNUpdateAPK
 
 RCT_EXPORT_MODULE();
 

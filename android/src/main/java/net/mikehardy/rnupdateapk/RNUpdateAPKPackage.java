@@ -1,4 +1,4 @@
-package com.parryworld.rnappupdate;
+package net.mikehardy.rnupdateapk;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -14,12 +14,12 @@ import java.util.List;
  * Created by parryworld on 2016/11/18.
  */
 
-public class RNAppUpdatePackage implements ReactPackage {
+public class RNUpdateAPKPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.asList(new NativeModule[]{
-                new RNAppUpdate(reactContext),
+                new RNUpdateAPK(reactContext),
         });
     }
 

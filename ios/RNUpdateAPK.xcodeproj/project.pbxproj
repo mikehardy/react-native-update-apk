@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EA4DC2B1DDEC30100B4B05F /* RNAppUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4DC2A1DDEC30100B4B05F /* RNAppUpdate.m */; };
-		0EA4DC2C1DDEC30100B4B05F /* RNAppUpdate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EA4DC291DDEC30100B4B05F /* RNAppUpdate.h */; };
+		0EA4DC2B1DDEC30100B4B05F /* RNUpdateAPK.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4DC2A1DDEC30100B4B05F /* RNUpdateAPK.m */; };
+		0EA4DC2C1DDEC30100B4B05F /* RNUpdateAPK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EA4DC291DDEC30100B4B05F /* RNUpdateAPK.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,16 +18,16 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				0EA4DC2C1DDEC30100B4B05F /* RNAppUpdate.h in CopyFiles */,
+				0EA4DC2C1DDEC30100B4B05F /* RNUpdateAPK.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0EA4DC261DDEC30100B4B05F /* libRNAppUpdate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNAppUpdate.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0EA4DC291DDEC30100B4B05F /* RNAppUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNAppUpdate.h; sourceTree = "<group>"; };
-		0EA4DC2A1DDEC30100B4B05F /* RNAppUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNAppUpdate.m; sourceTree = "<group>"; };
+		0EA4DC261DDEC30100B4B05F /* libRNUpdateAPK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNUpdateAPK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EA4DC291DDEC30100B4B05F /* RNUpdateAPK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNUpdateAPK.h; sourceTree = "<group>"; };
+		0EA4DC2A1DDEC30100B4B05F /* RNUpdateAPK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNUpdateAPK.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 		0EA4DC1D1DDEC30100B4B05F = {
 			isa = PBXGroup;
 			children = (
-				0EA4DC281DDEC30100B4B05F /* RNAppUpdate */,
+				0EA4DC281DDEC30100B4B05F /* RNUpdateAPK */,
 				0EA4DC271DDEC30100B4B05F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,26 +52,26 @@
 		0EA4DC271DDEC30100B4B05F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EA4DC261DDEC30100B4B05F /* libRNAppUpdate.a */,
+				0EA4DC261DDEC30100B4B05F /* libRNUpdateAPK.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0EA4DC281DDEC30100B4B05F /* RNAppUpdate */ = {
+		0EA4DC281DDEC30100B4B05F /* RNUpdateAPK */ = {
 			isa = PBXGroup;
 			children = (
-				0EA4DC291DDEC30100B4B05F /* RNAppUpdate.h */,
-				0EA4DC2A1DDEC30100B4B05F /* RNAppUpdate.m */,
+				0EA4DC291DDEC30100B4B05F /* RNUpdateAPK.h */,
+				0EA4DC2A1DDEC30100B4B05F /* RNUpdateAPK.m */,
 			);
-			path = RNAppUpdate;
+			path = RNUpdateAPK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0EA4DC251DDEC30100B4B05F /* RNAppUpdate */ = {
+		0EA4DC251DDEC30100B4B05F /* RNUpdateAPK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0EA4DC2F1DDEC30100B4B05F /* Build configuration list for PBXNativeTarget "RNAppUpdate" */;
+			buildConfigurationList = 0EA4DC2F1DDEC30100B4B05F /* Build configuration list for PBXNativeTarget "RNUpdateAPK" */;
 			buildPhases = (
 				0EA4DC221DDEC30100B4B05F /* Sources */,
 				0EA4DC231DDEC30100B4B05F /* Frameworks */,
@@ -81,9 +81,9 @@
 			);
 			dependencies = (
 			);
-			name = RNAppUpdate;
-			productName = RNAppUpdate;
-			productReference = 0EA4DC261DDEC30100B4B05F /* libRNAppUpdate.a */;
+			name = RNUpdateAPK;
+			productName = RNUpdateAPK;
+			productReference = 0EA4DC261DDEC30100B4B05F /* libRNUpdateAPK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -101,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0EA4DC211DDEC30100B4B05F /* Build configuration list for PBXProject "RNAppUpdate" */;
+			buildConfigurationList = 0EA4DC211DDEC30100B4B05F /* Build configuration list for PBXProject "RNUpdateAPK" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -113,7 +113,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0EA4DC251DDEC30100B4B05F /* RNAppUpdate */,
+				0EA4DC251DDEC30100B4B05F /* RNUpdateAPK */,
 			);
 		};
 /* End PBXProject section */
@@ -123,7 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EA4DC2B1DDEC30100B4B05F /* RNAppUpdate.m in Sources */,
+				0EA4DC2B1DDEC30100B4B05F /* RNUpdateAPK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +241,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0EA4DC211DDEC30100B4B05F /* Build configuration list for PBXProject "RNAppUpdate" */ = {
+		0EA4DC211DDEC30100B4B05F /* Build configuration list for PBXProject "RNUpdateAPK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0EA4DC2D1DDEC30100B4B05F /* Debug */,
@@ -250,7 +250,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0EA4DC2F1DDEC30100B4B05F /* Build configuration list for PBXNativeTarget "RNAppUpdate" */ = {
+		0EA4DC2F1DDEC30100B4B05F /* Build configuration list for PBXNativeTarget "RNUpdateAPK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0EA4DC301DDEC30100B4B05F /* Debug */,

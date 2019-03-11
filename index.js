@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import RNFS from 'react-native-fs';
 
-const RNAppUpdate = NativeModules.RNAppUpdate;
+const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
 const jobId = -1;
 
-class AppUpdate {
+class UpdateAPK {
   constructor(options) {
     this.options = options;
   }
@@ -39,7 +39,7 @@ class AppUpdate {
 
   getApkVersionSuccess(remote) {
     console.log("getApkVersionSuccess", remote);
-    if (RNAppUpdate.versionName !== remote.versionName) {
+    if (RNUpdateAPK.versionName !== remote.versionName) {
       if (remote.forceUpdate) {
         if(this.options.forceUpdateApp) {
           this.options.forceUpdateApp();
@@ -83,7 +83,7 @@ class AppUpdate {
     ret.promise.then((res) => {
       console.log("downloadApkEnd");
       this.options.downloadApkEnd && this.options.downloadApkEnd();
-      RNAppUpdate.installApk(downloadDestPath);
+      RNUpdateAPK.installApk(downloadDestPath);
 
       jobId = -1;
     }).catch((err) => {
@@ -109,11 +109,11 @@ class AppUpdate {
     const result = data.results[0];
     const version = result.version;
     const trackViewUrl = result.trackViewUrl;
-    if (version !== RNAppUpdate.versionName) {
+    if (version !== RNUpdateAPK.versionName) {
       if (this.options.needUpdateApp) {
         this.options.needUpdateApp((isUpdate) => {
           if (isUpdate) {
-            RNAppUpdate.installFromAppStore(trackViewUrl);
+            RNUpdateAPK.installFromAppStore(trackViewUrl);
           }
         });
       }
@@ -138,4 +138,4 @@ class AppUpdate {
   }
 }
 
-export default AppUpdate;
+export default UpdateAPK;

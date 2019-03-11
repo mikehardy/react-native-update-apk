@@ -1,4 +1,4 @@
-package com.parryworld.rnappupdate;
+package net.mikehardy.rnupdateapk;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -17,12 +17,12 @@ import java.util.Map;
  * Created by parryworld on 2016/11/18.
  */
 
-public class RNAppUpdate extends ReactContextBaseJavaModule {
+public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
     private String versionName = "1.0.0";
     private int versionCode = 1;
 
-    public RNAppUpdate(ReactApplicationContext reactContext) {
+    public RNUpdateAPK(ReactApplicationContext reactContext) {
         super(reactContext);
         PackageInfo pInfo = null;
         try {
@@ -36,7 +36,7 @@ public class RNAppUpdate extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "RNAppUpdate";
+        return "RNUpdateAPK";
     }
 
     @Override
