@@ -1,6 +1,6 @@
 {
   "name": "rn-update-apk",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Check for new APK versions and update app from React Native",
   "main": "index.js",
   "repository": {
@@ -26,6 +26,9 @@
   "license": "MIT",
   "dependencies": {
     "react-native-fs": "^2.13.3"
+  },
+  "devDependencies": {
+    "react-native-cli": "^2.0.1"
   },
   "nativePackage": true,
   "publishConfig": {
