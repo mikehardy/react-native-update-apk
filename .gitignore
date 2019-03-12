@@ -9,3 +9,4 @@ package-lock.json
 .settings
 .classpath
 *.swp
+example/android/app/src/main/assets/
