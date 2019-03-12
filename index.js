@@ -123,11 +123,12 @@ class UpdateAPK {
 
   getVersionError(err) {
     console.log("getVersionError", err);
+    this.options.onError && this.options.onError(err);
   }
 
   downloadApkError(err) {
     console.log("downloadApkError", err);
-    this.options.onError && this.options.onError();
+    this.options.onError && this.options.onError(err);
   }
 
   checkUpdate() {
