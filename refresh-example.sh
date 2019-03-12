@@ -25,7 +25,7 @@ fi
 # Make the new example
 npx react-native init example
 pushd example
-npm install rn-update-apk
+npm install https://github.com/mikehardy/react-native-update-apk.git
 npx react-native link rn-update-apk
 npx react-native link react-native-fs
 

@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.6",
-    "rn-update-apk": "^2.0.0"
+    "rn-update-apk": "git+https://github.com/mikehardy/react-native-update-apk.git"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
