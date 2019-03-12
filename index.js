@@ -4,7 +4,6 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import RNFS from 'react-native-fs';
 
 const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
@@ -69,7 +68,7 @@ class UpdateAPK {
     const progressDivider = 1;
     const downloadDestPath = `${RNFS.DocumentDirectoryPath}/NewApp.apk`;
 
-    const ret = RNFS.downloadFile({
+    const ret = require("react-native-fs").downloadFile({
       fromUrl: remote.apkUrl,
       toFile: downloadDestPath,
       begin,
