@@ -46,4 +46,9 @@ RCT_EXPORT_METHOD(installFromAppStore:(nonnull NSString *)trackViewURL) {
     }
 }
 
++(BOOL)requiresMainQueueSetup
+{
+  return YES;
+}
+
 @end
