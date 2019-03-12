@@ -98,7 +98,9 @@ class UpdateAPK {
       console.log("iosAppId doesn't exist.");
       return;
     }
-    this.GET("https://itunes.apple.com/lookup?id=" + this.options.iosAppId, this.getAppStoreVersionSuccess.bind(this), this.getVersionError.bind(this));
+    const URL = "https://itunes.apple.com/us/app/apple-store/id" + this.options.iosAppId + "?mt=8";
+    console.log("attempting to fetch " + URL);
+    this.GET(URL, this.getAppStoreVersionSuccess.bind(this), this.getVersionError.bind(this));
   }
 
   getAppStoreVersionSuccess(data) {
