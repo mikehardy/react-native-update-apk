@@ -8,7 +8,7 @@ import RNFS from 'react-native-fs';
 
 const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
-const jobId = -1;
+let jobId = -1;
 
 class UpdateAPK {
   constructor(options) {
