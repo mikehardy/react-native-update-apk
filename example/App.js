@@ -8,23 +8,68 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import updateApk from 'rn-update-apk';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+const updater = new updateApk({
+  iosAppId: '1104809018', // iOS must use App Store. This is a sample: "All Birds of Ecuador" (¡Qué lindo!)
+  apkVersionUrl: 'https://raw.githubusercontent.com/mikehardy/react-native-update-apk/master/example/test-version.json',
+  needUpdateApp: (needUpdate) => {
+    Alert.alert(
+      'Update Available',
+      'New version released, do you want to update?',
+      [
+        {text: 'Cancel', onPress: () => {}},
+        {text: 'Update', onPress: () => needUpdate(true)}
+      ]
+    );
+  },
+  forceUpdateApp: () => {
+    console.log("forceUpdateApp callback called")
+  },
+  notNeedUpdateApp: () => {
+    console.log("notNeedUpdateApp callback called")
+  },
+  downloadApkStart: () => { console.log("downloadApkStart callback called") },
+  downloadApkProgress: (progress) => { console.log(`downloadApkProgress callback called - ${progress}%...`) },
+  downloadApkEnd: () => { console.log("downloadApkEnd callback called") },
+  onError: () => { console.log("onError callback called") }
 });
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentVersion: 'unknown',
+      serverVersion: 'unknown',
+    }
+  }
+
+  async componentDidMount() {
+
+  }
+
+  _onCheckServerVersion = () => {
+    console.log('Check server version');
+  }
+
+  _onCheckServerVersion = () => {
+    updater.checkUpdate();
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.welcome}>rn-update-apk example</Text>
+        <Text style={styles.instructions}>Current APK version: {this.state.currentVersion}</Text>
+        <Button title="Check Server Version" onPress={this._onCheckServerVersion}>
+          <Text style={styles.instructions}>Check Server Version</Text>
+        </Button>
+        <Button title="Update App" onPress={this._onUpdateApp}>
+          <Text style={styles.instructions}>Update App</Text>
+        </Button>
       </View>
     );
   }
