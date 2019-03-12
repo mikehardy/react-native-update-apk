@@ -58,6 +58,7 @@ class UpdateAPK {
   }
 
   downloadApk(remote) {
+    const RNFS = require("react-native-fs");
     const progress = data => {
       const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
       this.options.downloadApkProgress &&
@@ -70,7 +71,7 @@ class UpdateAPK {
     const progressDivider = 1;
     const downloadDestPath = `${RNFS.DocumentDirectoryPath}/NewApp.apk`;
 
-    const ret = require("react-native-fs").downloadFile({
+    const ret = RNFS.downloadFile({
       fromUrl: remote.apkUrl,
       toFile: downloadDestPath,
       begin,
