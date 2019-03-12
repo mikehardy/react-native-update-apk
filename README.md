@@ -12,12 +12,12 @@ Linking automatically with react-native link
 react-native link rn-update-apk
 react-native link react-native-fs
 ```
-## Usage
+## Usage - see included example, or like this:
 ```javascript
 import { Alert } from 'react-native';
 import updateApk from 'rn-update-apk';
 
-const updateApk = new updateApk({
+const updater = new updateApk({
   iosAppId: '123456', // iOS must install from app store, but we can point the user there
   apkVersionUrl: 'https://github.com/your-github-name/version.json',
   needUpdateApp: (needUpdate) => {
@@ -41,7 +41,7 @@ const updateApk = new updateApk({
   downloadApkEnd: () => { console.log("End") },
   onError: () => { console.log("downloadApkError") }
 });
-updateApk.checkUpdate();
+updater.checkUpdate();
 ```
 
 ```javascript
