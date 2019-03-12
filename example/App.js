@@ -20,6 +20,9 @@ const updater = new updateApk({
       'New version released, do you want to update?',
       [
         {text: 'Cancel', onPress: () => {}},
+        // Note, apps can be large. You may want to check if the network is metered (cellular data) to be nice.
+        // Note that the user will likely get a popup saying the device is set to block installs from uknown sources.
+        // ...you will need to guide them through that, maybe by explaining it here, before you call needUpdate(true);
         {text: 'Update', onPress: () => needUpdate(true)}
       ]
     );
