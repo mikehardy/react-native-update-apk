@@ -1,9 +1,6 @@
-'use strict';
+"use strict";
 
-import {
-  NativeModules,
-  Platform,
-} from 'react-native';
+import { NativeModules, Platform } from "react-native";
 
 const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
@@ -16,11 +13,11 @@ class UpdateAPK {
 
   GET(url, success, error) {
     fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
+      .then(response => response.json())
+      .then(json => {
         success && success(json);
       })
-      .catch((err) => {
+      .catch(err => {
         error && error(err);
       });
   }
@@ -33,35 +30,40 @@ class UpdateAPK {
       console.log("apkVersionUrl doesn't exist.");
       return;
     }
-    this.GET(this.options.apkVersionUrl, this.getApkVersionSuccess.bind(this), this.getVersionError.bind(this));
+    this.GET(
+      this.options.apkVersionUrl,
+      this.getApkVersionSuccess.bind(this),
+      this.getVersionError.bind(this)
+    );
   }
 
   getApkVersionSuccess(remote) {
     console.log("getApkVersionSuccess", remote);
     if (RNUpdateAPK.versionName !== remote.versionName) {
       if (remote.forceUpdate) {
-        if(this.options.forceUpdateApp) {
+        if (this.options.forceUpdateApp) {
           this.options.forceUpdateApp();
         }
         this.downloadApk(remote);
       } else if (this.options.needUpdateApp) {
-        this.options.needUpdateApp((isUpdate) => {
+        this.options.needUpdateApp(isUpdate => {
           if (isUpdate) {
             this.downloadApk(remote);
           }
         });
       }
-    } else if(this.options.notNeedUpdateApp) {
+    } else if (this.options.notNeedUpdateApp) {
       this.options.notNeedUpdateApp();
     }
   }
 
   downloadApk(remote) {
-    const progress = (data) => {
+    const progress = data => {
       const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
-      this.options.downloadApkProgress && this.options.downloadApkProgress(percentage);
+      this.options.downloadApkProgress &&
+        this.options.downloadApkProgress(percentage);
     };
-    const begin = (res) => {
+    const begin = res => {
       console.log("downloadApkStart");
       this.options.downloadApkStart && this.options.downloadApkStart();
     };
@@ -79,17 +81,19 @@ class UpdateAPK {
 
     jobId = ret.jobId;
 
-    ret.promise.then((res) => {
-      console.log("downloadApkEnd");
-      this.options.downloadApkEnd && this.options.downloadApkEnd();
-      RNUpdateAPK.installApk(downloadDestPath);
+    ret.promise
+      .then(res => {
+        console.log("downloadApkEnd");
+        this.options.downloadApkEnd && this.options.downloadApkEnd();
+        RNUpdateAPK.installApk(downloadDestPath);
 
-      jobId = -1;
-    }).catch((err) => {
-      this.downloadApkError(err);
+        jobId = -1;
+      })
+      .catch(err => {
+        this.downloadApkError(err);
 
-      jobId = -1;
-    });
+        jobId = -1;
+      });
   }
 
   getAppStoreVersion() {
@@ -97,9 +101,16 @@ class UpdateAPK {
       console.log("iosAppId doesn't exist.");
       return;
     }
-    const URL = "https://itunes.apple.com/us/app/apple-store/id" + this.options.iosAppId + "?mt=8";
+    const URL =
+      "https://itunes.apple.com/us/app/apple-store/id" +
+      this.options.iosAppId +
+      "?mt=8";
     console.log("attempting to fetch " + URL);
-    this.GET(URL, this.getAppStoreVersionSuccess.bind(this), this.getVersionError.bind(this));
+    this.GET(
+      URL,
+      this.getAppStoreVersionSuccess.bind(this),
+      this.getVersionError.bind(this)
+    );
   }
 
   getAppStoreVersionSuccess(data) {
@@ -112,7 +123,7 @@ class UpdateAPK {
     const trackViewUrl = result.trackViewUrl;
     if (version !== RNUpdateAPK.versionName) {
       if (this.options.needUpdateApp) {
-        this.options.needUpdateApp((isUpdate) => {
+        this.options.needUpdateApp(isUpdate => {
           if (isUpdate) {
             RNUpdateAPK.installFromAppStore(trackViewUrl);
           }
@@ -132,7 +143,7 @@ class UpdateAPK {
   }
 
   checkUpdate() {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       this.getApkVersion();
     } else {
       this.getAppStoreVersion();
