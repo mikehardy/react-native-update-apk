@@ -36,7 +36,7 @@ const updater = new updateApk({
   downloadApkStart: () => { console.log("downloadApkStart callback called") },
   downloadApkProgress: (progress) => { console.log(`downloadApkProgress callback called - ${progress}%...`) },
   downloadApkEnd: () => { console.log("downloadApkEnd callback called") },
-  onError: () => { console.log("onError callback called") }
+  onError: (err) => { console.log("onError callback called", err) }
 });
 
 type Props = {};
