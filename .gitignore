@@ -8,5 +8,8 @@ package-lock.json
 .project
 .settings
 .classpath
+.gradle
+.idea
+local.properties
 *.swp
 example/android/app/src/main/assets/
