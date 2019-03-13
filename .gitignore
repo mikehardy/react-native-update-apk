@@ -1,4 +1,6 @@
 .DS_Store
+.vscode/
+*.code-workspace
 xcuserdata
 build/
 *.iml
