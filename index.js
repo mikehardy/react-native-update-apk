@@ -88,7 +88,7 @@ class UpdateAPK {
       .then(res => {
         console.log("downloadApkEnd");
         this.options.downloadApkEnd && this.options.downloadApkEnd();
-        RNUpdateAPK.installApk(downloadDestPath);
+        RNUpdateAPK.installApk(downloadDestPath, this.options.fileProviderAuthority);
 
         jobId = -1;
       })
