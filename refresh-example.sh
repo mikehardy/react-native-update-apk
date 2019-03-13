@@ -13,11 +13,21 @@ if [ -d TEMP ]; then
 else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android/app/src/main/res/xml
+  mkdir -p TEMP/android/keystores
+
+  # This fixes possible build problems with ANDROID_SDK_HOME not specified
   cp example/android/local.properties TEMP/android/ || true
+
+  # We have to provide File Provider information
   cp example/android/app/src/main/AndroidManifest.xml TEMP/android/app/src/main/ || true
   cp example/android/app/src/main/res/xml/filepaths.xml TEMP/android/app/src/main/res/xml/ || true
+
+  # Our example app is different than the default example app naturally
   cp example/App.js TEMP/
   cp example/test-version.json TEMP/
+
+  # If you don't sign with the same key, updates will fail
+  cp example/android/keystores/debug.keystore* TEMP/android/keystores/ || true
 fi
 
 # Purge the old sample
