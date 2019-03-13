@@ -12,9 +12,10 @@ if [ -d TEMP ]; then
   exit 1
 else
   echo "Saving files to TEMP while refreshing scaffolding..."
-  mkdir -p TEMP/android/app/src/main/
+  mkdir -p TEMP/android/app/src/main/res/xml
   cp example/android/local.properties TEMP/android/ || true
   cp example/android/app/src/main/AndroidManifest.xml TEMP/android/app/src/main/ || true
+  cp example/android/app/src/main/res/xml/filepaths.xml TEMP/android/app/src/main/res/xml/ || true
   cp example/App.js TEMP/
   cp example/test-version.json TEMP/
 fi

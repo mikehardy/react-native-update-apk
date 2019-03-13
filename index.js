@@ -69,7 +69,9 @@ class UpdateAPK {
       this.options.downloadApkStart && this.options.downloadApkStart();
     };
     const progressDivider = 1;
-    const downloadDestPath = `${RNFS.DocumentDirectoryPath}/NewApp.apk`;
+    // You must be sure filepaths.xml exposes this path or you will have a FileProvider error API24+
+    // You might check {totalSpace, freeSpace} = await RNFS.getFSInfo() to make sure there is room
+    const downloadDestPath = `${RNFS.CachesDirectoryPath}/NewApp.apk`;
 
     const ret = RNFS.downloadFile({
       fromUrl: remote.apkUrl,

@@ -14,6 +14,7 @@ import updateApk from 'rn-update-apk';
 const updater = new updateApk({
   iosAppId: '1104809018', // iOS must use App Store. This is a sample: "All Birds of Ecuador" (¡Qué lindo!)
   apkVersionUrl: 'https://raw.githubusercontent.com/mikehardy/react-native-update-apk/master/example/test-version.json',
+  fileProviderAuthority: "com.example.fileprovider",
   needUpdateApp: (needUpdate) => {
     Alert.alert(
       'Update Available',
@@ -44,18 +45,10 @@ export default class App extends Component<Props> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      currentVersion: 'unknown',
-      serverVersion: 'unknown',
-    }
   }
 
   async componentDidMount() {
 
-  }
-
-  _onCheckServerVersion = () => {
-    console.log('Check server version');
   }
 
   _onCheckServerVersion = () => {
@@ -66,13 +59,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>rn-update-apk example</Text>
-        <Text style={styles.instructions}>Current APK version: {this.state.currentVersion}</Text>
-        <Button title="Check Server Version" onPress={this._onCheckServerVersion}>
-          <Text style={styles.instructions}>Check Server Version</Text>
-        </Button>
-        <Button title="Update App" onPress={this._onUpdateApp}>
-          <Text style={styles.instructions}>Update App</Text>
-        </Button>
+        <Button title="Check Server For Update" onPress={this._onCheckServerVersion}/>
       </View>
     );
   }

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -24,7 +26,7 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
     public RNUpdateAPK(ReactApplicationContext reactContext) {
         super(reactContext);
-        PackageInfo pInfo = null;
+        PackageInfo pInfo;
         try {
             pInfo = reactContext.getPackageManager().getPackageInfo(reactContext.getPackageName(), 0);
             versionName = pInfo.versionName;
@@ -48,16 +50,19 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void installApk(String file) {
-        String cmd = "chmod 777 " + file;
-        try {
-            Runtime.getRuntime().exec(cmd);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void installApk(String filePath, String fileProviderAuthority) {
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            Log.e("RNUpdateAPK", "installApk: file doe snot exist '" + filePath + "'");
+            // FIXME this should take a promise and fail it
+            return;
         }
+        Uri contentUri = FileProvider.getUriForFile(getReactApplicationContext(), fileProviderAuthority, file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(Uri.parse("file://" + file), "application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         getCurrentActivity().startActivity(intent);
     }
 }
