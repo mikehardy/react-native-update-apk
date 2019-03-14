@@ -21,7 +21,6 @@ It might be better to do an [Intent.ACTION_INSTALL_PACKAGE?](<https://developer.
 ## Enable much more information about the current package and it's abilities
 
 - Should show if it [can even request package installs](<https://developer.android.com/reference/android/content/pm/PackageManager.html#canRequestPackageInstalls()>) and if it has permissions (see link above)
-- Should be possible to show [who installed current package](<https://developer.android.com/reference/android/content/pm/PackageManager.html#getInstallerPackageName(java.lang.String)>)
 - Should be possible to show [everything about the current package](<https://developer.android.com/reference/android/content/pm/PackageManager.html#getPackageInfo(java.lang.String,%20int)>)
 - it is possible for necessary permissions to be [revoked by policy and thus not even available](<https://developer.android.com/reference/android/content/pm/PackageManager.html#isPermissionRevokedByPolicy(java.lang.String,%20java.lang.String)>) we could help with messaging in that instance
 

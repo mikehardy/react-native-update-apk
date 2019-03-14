@@ -8,7 +8,14 @@
  */
 
 import React, { Component } from "react";
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import * as UpdateAPK from "rn-update-apk";
 
 type Props = {};
@@ -87,6 +94,12 @@ export default class App extends Component<Props> {
           Installed Package Installer:
           {UpdateAPK.getInstalledPackageInstaller()}
         </Text>
+        <ScrollView style={{ flex: 1 }}>
+          <Text style={styles.instructions}>
+            Installed Package 1st Signature:
+            {UpdateAPK.getInstalledSigningInfo()[0].toString}
+          </Text>
+        </ScrollView>
         <Button
           title="Check Server For Update"
           onPress={this._onCheckServerVersion}

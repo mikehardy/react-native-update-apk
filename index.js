@@ -175,3 +175,6 @@ export function getInstalledLastUpdateTime() {
 export function getInstalledPackageInstaller() {
   return RNUpdateAPK.packageInstaller;
 }
+export function getInstalledSigningInfo() {
+  return RNUpdateAPK.signatures;
+}
