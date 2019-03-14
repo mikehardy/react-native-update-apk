@@ -22,6 +22,9 @@ type Props = {};
 export default class App extends Component<Props> {
   constructor(props) {
     super(props);
+    this.state = {
+      downloadProgress: -1
+    };
 
     updater = new UpdateAPK.UpdateAPK({
       iosAppId: "1104809018", // iOS must use App Store. This is a sample: "All Birds of Ecuador" (¡Qué lindo!)
@@ -31,7 +34,11 @@ export default class App extends Component<Props> {
       needUpdateApp: needUpdate => {
         Alert.alert(
           "Update Available",
-          "New version released, do you want to update?",
+          "New version released, do you want to update? " +
+            "(TESTING NOTE 1: stop your dev package server now - or the test package will try to load from it " +
+            "instead of the included bundle leading to Javascript/Native incompatibilities." +
+            "TESTING NOTE 2: the version is fixed at 1.0 so example test updates always work. " +
+            "Compare the Last Update Times to verify it installed)",
           [
             { text: "Cancel", onPress: () => {} },
             // Note, apps can be large. You may want to check if the network is metered (cellular data) to be nice.
@@ -52,6 +59,7 @@ export default class App extends Component<Props> {
       },
       downloadApkProgress: progress => {
         console.log(`downloadApkProgress callback called - ${progress}%...`);
+        this.setState({ downloadProgress: progress });
       },
       downloadApkEnd: () => {
         console.log("downloadApkEnd callback called");
@@ -70,6 +78,7 @@ export default class App extends Component<Props> {
   };
 
   render() {
+    console.log(UpdateAPK.getInstalledSigningInfo());
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>rn-update-apk example</Text>
@@ -96,10 +105,18 @@ export default class App extends Component<Props> {
         </Text>
         <ScrollView style={{ flex: 1 }}>
           <Text style={styles.instructions}>
-            Installed Package 1st Signature:
+            Installed Package Certificate SHA-256 Digest:
+            {UpdateAPK.getInstalledSigningInfo()[0].thumbprint}
+          </Text>
+          <Text style={styles.instructions}>
             {UpdateAPK.getInstalledSigningInfo()[0].toString}
           </Text>
         </ScrollView>
+        {this.state.downloadProgress != -1 && (
+          <Text style={styles.instructions}>
+            Download Progress: {this.state.downloadProgress}%
+          </Text>
+        )}
         <Button
           title="Check Server For Update"
           onPress={this._onCheckServerVersion}

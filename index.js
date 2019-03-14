@@ -88,6 +88,25 @@ export class UpdateAPK {
       .then(res => {
         console.log("downloadApkEnd");
         this.options.downloadApkEnd && this.options.downloadApkEnd();
+        RNUpdateAPK.getApkInfo(downloadDestPath)
+          .then(res => {
+            console.log(
+              "Old Cert SHA-256: " + RNUpdateAPK.signatures[0].thumbprint
+            );
+            console.log("New Cert SHA-256: " + res.signatures[0].thumbprint);
+            if (
+              res.signatures[0].thumbprint !==
+              RNUpdateAPK.signatures[0].thumbprint
+            ) {
+              console.log(
+                "The signature thumbprints seem unequal. Install should fail"
+              );
+            }
+          })
+          .catch(rej => {
+            console.log("apk info error: ");
+            console.log(rej);
+          });
         RNUpdateAPK.installApk(
           downloadDestPath,
           this.options.fileProviderAuthority

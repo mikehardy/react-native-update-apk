@@ -10,6 +10,7 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -19,7 +20,7 @@ import com.facebook.react.bridge.WritableMap;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.security.cert.CertificateException;
+import java.security.MessageDigest;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
@@ -53,34 +54,68 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             constants.put("firstInstallTime", pInfo.firstInstallTime);
             constants.put("lastUpdateTime", pInfo.lastUpdateTime);
             constants.put("packageInstaller", pManager.getInstallerPackageName(pInfo.packageName));
-
-            final Signature[] arrSignatures = pInfo.signatures;
-
-            WritableArray signaturesReturn = Arguments.createArray();
-            for (Signature sig : arrSignatures) {
-                final byte[] rawCert = sig.toByteArray();
-                WritableMap signatureReturn = Arguments.createMap();
-
-                InputStream certStream = new ByteArrayInputStream(rawCert);
-                try {
-                    CertificateFactory certFactory = CertificateFactory.getInstance("X509");
-                    X509Certificate x509Cert = (X509Certificate) certFactory.generateCertificate(certStream);
-                    signatureReturn.putString("subject", x509Cert.getSubjectDN().toString());
-                    signatureReturn.putString("issuer", x509Cert.getIssuerDN().toString());
-                    signatureReturn.putString("serialNumber", x509Cert.getSerialNumber().toString());
-                    signatureReturn.putInt("signature", sig.hashCode());
-                    signatureReturn.putString("toString", x509Cert.toString());
-                } catch (CertificateException e) {
-                    e.printStackTrace();
-                }
-                signaturesReturn.pushMap(signatureReturn);
-            }
-            constants.put("signatures", signaturesReturn);
+            constants.put("signatures", getPackageSignatureInfo(pInfo));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
         return constants;
+    }
+
+    private WritableArray getPackageSignatureInfo(PackageInfo pInfo) {
+        WritableArray signaturesReturn = Arguments.createArray();
+        final Signature[] arrSignatures = pInfo.signatures;
+        for (Signature sig : arrSignatures) {
+            final byte[] rawCert = sig.toByteArray();
+            WritableMap signatureReturn = Arguments.createMap();
+
+            InputStream certStream = new ByteArrayInputStream(rawCert);
+            try {
+                CertificateFactory certFactory = CertificateFactory.getInstance("X509");
+                X509Certificate x509Cert = (X509Certificate) certFactory.generateCertificate(certStream);
+                signatureReturn.putString("subject", x509Cert.getSubjectDN().toString());
+                signatureReturn.putString("issuer", x509Cert.getIssuerDN().toString());
+                signatureReturn.putString("serialNumber", x509Cert.getSerialNumber().toString());
+                signatureReturn.putInt("signature", sig.hashCode());
+                signatureReturn.putString("toString", x509Cert.toString());
+                signatureReturn.putString("thumbprint", getThumbprint(x509Cert));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            signaturesReturn.pushMap(signatureReturn);
+        }
+        return signaturesReturn;
+    }
+
+    private static String getThumbprint(X509Certificate cert) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] der = cert.getEncoded();
+        md.update(der);
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder(2 * bytes.length);
+        for (byte b : bytes) {
+            sb.append("0123456789ABCDEF".charAt((b & 0xF0) >> 4));
+            sb.append("0123456789ABCDEF".charAt((b & 0x0F)));
+        }
+        String hex = sb.toString();
+        return hex.toLowerCase();
+    }
+
+    @ReactMethod
+    public void getApkInfo(String apkPath, Promise p) {
+        try {
+            PackageManager pManager = reactContext.getPackageManager();
+            PackageInfo pInfo = pManager.getPackageArchiveInfo(apkPath, PackageManager.GET_SIGNATURES);
+            WritableMap apkInfo = Arguments.createMap();
+            apkInfo.putString("versionName", pInfo.versionName);
+            apkInfo.putInt("versionCode", pInfo.versionCode);
+            apkInfo.putString("packageName", pInfo.packageName);
+            apkInfo.putString("packageInstaller", pManager.getInstallerPackageName(pInfo.packageName));
+            apkInfo.putArray("signatures", getPackageSignatureInfo(pInfo));
+            p.resolve(apkInfo);
+        } catch (Exception e) {
+            p.reject(e);
+        }
     }
 
     @ReactMethod
