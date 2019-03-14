@@ -5,3 +5,4 @@ build/
 npm-debug.log
 example
 refresh-example.sh
+release-example.sh
