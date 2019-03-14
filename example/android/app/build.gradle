@@ -96,7 +96,10 @@ def enableProguardInReleaseBuilds = false
 android {
     signingConfigs {
         debug {
-            storeFile file("../keystores/debug.keystore")
+            storeFile rootProject.file("keystores/debug.keystore")
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
