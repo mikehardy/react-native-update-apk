@@ -16,7 +16,7 @@ Currently we are using a view like this:
         getCurrentActivity().startActivity(intent);
 ```
 
-It might be better to do an [Intent.ACTION_INSTALL_PACKAGE?](<<https://developer.android.com/reference/android/content/Intent.html#ACTION_INSTALL_PACKAGE()>)> "but only if you hole the [right permissions](https://developer.android.com/reference/android/Manifest.permission.html#REQUEST_INSTALL_PACKAGES") while being careful to [check if the permission was granted(https://developer.android.com/reference/android/content/pm/PackageInfo.html#requestedPermissionsFlags)
+It might be better to do an [Intent.ACTION_INSTALL_PACKAGE?](<https://developer.android.com/reference/android/content/Intent.html#ACTION_INSTALL_PACKAGE()> "but only if you hole the [right permissions](https://developer.android.com/reference/android/Manifest.permission.html#REQUEST_INSTALL_PACKAGES") while being careful to [check if the permission was granted(<https://developer.android.com/reference/android/content/pm/PackageInfo.html#requestedPermissionsFlags>)
 
 ## Enable much more information about the current package and it's abilities
 
