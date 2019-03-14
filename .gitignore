@@ -15,3 +15,4 @@ package-lock.json
 local.properties
 *.swp
 example/android/app/src/main/assets/
+*.apk
