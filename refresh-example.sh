@@ -28,6 +28,7 @@ else
 
   # If you don't sign with the same key, updates will fail
   cp example/android/keystores/debug.keystore* TEMP/android/keystores/ || true
+  cp example/android/app/build.gradle TEMP/android/app/ || true
 fi
 
 # Purge the old sample

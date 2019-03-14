@@ -94,6 +94,11 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file("../keystores/debug.keystore")
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
