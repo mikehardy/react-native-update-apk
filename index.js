@@ -9,7 +9,6 @@ let jobId = -1;
 export class UpdateAPK {
   constructor(options) {
     this.options = options;
-    console.log("constructor ran");
   }
 
   GET = (url, success, error) => {
