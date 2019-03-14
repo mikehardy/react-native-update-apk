@@ -6,12 +6,13 @@ const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
 let jobId = -1;
 
-class UpdateAPK {
+export class UpdateAPK {
   constructor(options) {
     this.options = options;
+    console.log("constructor ran");
   }
 
-  GET(url, success, error) {
+  GET = (url, success, error) => {
     fetch(url)
       .then(response => response.json())
       .then(json => {
@@ -20,9 +21,9 @@ class UpdateAPK {
       .catch(err => {
         error && error(err);
       });
-  }
+  };
 
-  getApkVersion() {
+  getApkVersion = () => {
     if (jobId !== -1) {
       return;
     }
@@ -35,9 +36,9 @@ class UpdateAPK {
       this.getApkVersionSuccess.bind(this),
       this.getVersionError.bind(this)
     );
-  }
+  };
 
-  getApkVersionSuccess(remote) {
+  getApkVersionSuccess = remote => {
     console.log("getApkVersionSuccess", remote);
     if (RNUpdateAPK.versionName !== remote.versionName) {
       if (remote.forceUpdate) {
@@ -55,9 +56,9 @@ class UpdateAPK {
     } else if (this.options.notNeedUpdateApp) {
       this.options.notNeedUpdateApp();
     }
-  }
+  };
 
-  downloadApk(remote) {
+  downloadApk = remote => {
     const RNFS = require("react-native-fs");
     const progress = data => {
       const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
@@ -88,7 +89,10 @@ class UpdateAPK {
       .then(res => {
         console.log("downloadApkEnd");
         this.options.downloadApkEnd && this.options.downloadApkEnd();
-        RNUpdateAPK.installApk(downloadDestPath, this.options.fileProviderAuthority);
+        RNUpdateAPK.installApk(
+          downloadDestPath,
+          this.options.fileProviderAuthority
+        );
 
         jobId = -1;
       })
@@ -97,9 +101,9 @@ class UpdateAPK {
 
         jobId = -1;
       });
-  }
+  };
 
-  getAppStoreVersion() {
+  getAppStoreVersion = () => {
     if (!this.options.iosAppId) {
       console.log("iosAppId doesn't exist.");
       return;
@@ -114,9 +118,9 @@ class UpdateAPK {
       this.getAppStoreVersionSuccess.bind(this),
       this.getVersionError.bind(this)
     );
-  }
+  };
 
-  getAppStoreVersionSuccess(data) {
+  getAppStoreVersionSuccess = data => {
     if (data.resultCount < 1) {
       console.log("iosAppId is wrong.");
       return;
@@ -133,25 +137,42 @@ class UpdateAPK {
         });
       }
     }
-  }
+  };
 
-  getVersionError(err) {
+  getVersionError = err => {
     console.log("getVersionError", err);
     this.options.onError && this.options.onError(err);
-  }
+  };
 
-  downloadApkError(err) {
+  downloadApkError = err => {
     console.log("downloadApkError", err);
     this.options.onError && this.options.onError(err);
-  }
+  };
 
-  checkUpdate() {
+  checkUpdate = () => {
     if (Platform.OS === "android") {
       this.getApkVersion();
     } else {
       this.getAppStoreVersion();
     }
-  }
+  };
 }
 
-export default UpdateAPK;
+export function getInstalledVersionName() {
+  return RNUpdateAPK.versionName;
+}
+export function getInstalledVersionCode() {
+  return RNUpdateAPK.versionCode;
+}
+export function getInstalledPackageName() {
+  return RNUpdateAPK.packageName;
+}
+export function getInstalledFirstInstallTime() {
+  return RNUpdateAPK.firstInstallTime;
+}
+export function getInstalledLastUpdateTime() {
+  return RNUpdateAPK.lastUpdateTime;
+}
+export function getInstalledPackageInstaller() {
+  return RNUpdateAPK.packageInstaller;
+}

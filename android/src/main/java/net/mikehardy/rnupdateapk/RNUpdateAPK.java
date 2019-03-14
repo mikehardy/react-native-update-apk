@@ -15,25 +15,13 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by parryworld on 2016/11/18.
- */
-
 public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
-    private String versionName = "1.0.0";
-    private int versionCode = 1;
+    private ReactApplicationContext reactContext;
 
     public RNUpdateAPK(ReactApplicationContext reactContext) {
         super(reactContext);
-        PackageInfo pInfo;
-        try {
-            pInfo = reactContext.getPackageManager().getPackageInfo(reactContext.getPackageName(), 0);
-            versionName = pInfo.versionName;
-            versionCode = pInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.reactContext = reactContext;
     }
 
     @Override
@@ -44,8 +32,20 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
     @Override
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
-        constants.put("versionName", versionName);
-        constants.put("versionCode", versionCode);
+        PackageManager pManager = reactContext.getPackageManager();
+        PackageInfo pInfo;
+        try {
+            pInfo = pManager.getPackageInfo(reactContext.getPackageName(), 0);
+            constants.put("versionName", pInfo.versionName);
+            constants.put("versionCode", pInfo.versionCode);
+            constants.put("packageName", pInfo.packageName);
+            constants.put("firstInstallTime", pInfo.firstInstallTime);
+            constants.put("lastUpdateTime", pInfo.lastUpdateTime);
+            constants.put("packageInstaller", pManager.getInstallerPackageName(pInfo.packageName));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return constants;
     }
 

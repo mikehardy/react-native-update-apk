@@ -10,10 +10,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by parryworld on 2016/11/18.
- */
-
 public class RNUpdateAPKPackage implements ReactPackage {
 
     @Override
@@ -21,6 +17,10 @@ public class RNUpdateAPKPackage implements ReactPackage {
         return Arrays.asList(new NativeModule[]{
                 new RNUpdateAPK(reactContext),
         });
+    }
+
+    public List<Class<? extends JavaScriptModule>> createJSModules() {
+        return Collections.emptyList();
     }
 
     @Override
