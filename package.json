@@ -1,6 +1,6 @@
 {
   "name": "rn-update-apk",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Check for new APK versions and update app from React Native",
   "main": "index.js",
   "repository": {
@@ -16,18 +16,16 @@
     "app",
     "apk"
   ],
-  "author": "parryworld (https://github.com/parryworld)",
+  "author": "Mike Hardy (https://github.com/mikehardy)",
   "contributors": [
-    {
-      "name": "Mike Hardy",
-      "url": "https://github.com/mikehardy"
-    }
+    "parryworld (https://github.com/parryworld)"
   ],
   "license": "MIT",
   "dependencies": {
     "react-native-fs": "^2.13.3"
   },
   "devDependencies": {
+    "prettier": "^1.16.4",
     "react-native-cli": "^2.0.1"
   },
   "nativePackage": true,
