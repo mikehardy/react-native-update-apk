@@ -16,3 +16,6 @@ local.properties
 *.swp
 example/android/app/src/main/assets/
 *.apk
+android/gradle
+android/gradlew
+android/gradlew.bat
