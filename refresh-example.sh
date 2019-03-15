@@ -26,8 +26,9 @@ else
   cp example/App.js TEMP/
   cp example/test-version.json TEMP/
 
-  # If you don't sign with the same key, updates will fail
+  # Build is custom - Play services, and if you don't sign with the same key, updates will fail
   cp example/android/keystores/debug.keystore* TEMP/android/keystores/ || true
+  cp example/android/build.gradle TEMP/android/ || true
   cp example/android/app/build.gradle TEMP/android/app/ || true
 fi
 

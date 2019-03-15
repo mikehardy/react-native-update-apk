@@ -66,11 +66,30 @@ export default class App extends Component<Props> {
       },
       onError: err => {
         console.log("onError callback called", err);
+        Alert.alert("There was a problem updating: " + err.message);
       }
     });
   }
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    // If you want to update devices below Android 5, they have SSL issues with some servers.
+    // You will get a protocol error unless you patch the SSL Provider.
+    // This will fail if they don have Google Play Services installed though.
+    UpdateAPK.patchSSLProvider()
+      .then(ret => {
+        console.log("SSL Provider Patch was successful");
+      })
+      .catch(rej => {
+        console.log("SSL Provider patch failed", rej);
+        let message = "Old Android API, and SSL Provider could not be patched.";
+        if (rej.message.includes("repairable")) {
+          message +=
+            " This is repairable on this device though." +
+            " You should send the users to the Play Store to update Play Services...";
+        }
+        Alert.alert("Possible SSL Problem", message);
+      });
+  }
 
   _onCheckServerVersion = () => {
     console.log("checking for update");
@@ -78,7 +97,6 @@ export default class App extends Component<Props> {
   };
 
   render() {
-    console.log(UpdateAPK.getInstalledSigningInfo());
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>rn-update-apk example</Text>
