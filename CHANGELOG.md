@@ -1,5 +1,12 @@
 # Release Notes
 
+## 3.2.1
+
+- Fix issue introduced in v3.0.0 with installing package on old devices
+  This works now in my testing from API16 to API28, assuming API16-20 have Google Play
+  Services if you want to download over SSL
+- Switch to non-deprecated Play Services availability APIs
+
 ## 3.2.0
 
 - Attempt to use Play Services to patch SSL for Android <5

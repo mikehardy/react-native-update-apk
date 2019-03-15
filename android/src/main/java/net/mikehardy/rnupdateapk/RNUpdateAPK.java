@@ -132,12 +132,29 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             // FIXME this should take a promise and fail it
             return;
         }
-        Uri contentUri = FileProvider.getUriForFile(getReactApplicationContext(), fileProviderAuthority, file);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-        getCurrentActivity().startActivity(intent);
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            // API24 and up has a package installer that can handle FileProvider content:// URIs
+            Uri contentUri = FileProvider.getUriForFile(getReactApplicationContext(), fileProviderAuthority, file);
+            Intent installApp = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            installApp.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            installApp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            installApp.setData(contentUri);
+            installApp.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, reactContext.getApplicationInfo().packageName);
+            reactContext.startActivity(installApp);
+        } else {
+            // Old APIs do not handle content:// URIs, so use an old file:// style
+            String cmd = "chmod 777 " + file;
+            try {
+                Runtime.getRuntime().exec(cmd);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(Uri.parse("file://" + file), "application/vnd.android.package-archive");
+            reactContext.startActivity(intent);
+        }
     }
 
     @ReactMethod
