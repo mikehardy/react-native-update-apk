@@ -17,9 +17,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.security.ProviderInstaller;
 
 import java.io.ByteArrayInputStream;
@@ -156,7 +156,7 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             // Thrown when Google Play Services is not installed, up-to-date, or enabled
             // Show dialog to allow users to install, update, or otherwise enable Google Play services.
             if (dialogIfRepairable) {
-                GooglePlayServicesUtil.getErrorDialog(e.getConnectionStatusCode(), getCurrentActivity(), 0);
+                GoogleApiAvailability.getInstance().getErrorDialog(getCurrentActivity(), e.getConnectionStatusCode(), 0);
             }
             String message = "Google Play Services repairable but not usable right now";
             Log.e("SecurityException", message);
