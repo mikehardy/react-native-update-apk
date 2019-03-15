@@ -66,7 +66,7 @@ export default class App extends Component<Props> {
       },
       onError: err => {
         console.log("onError callback called", err);
-        Alert.alert("There was a problem updating: " + err.message);
+        Alert.alert("There was an error", err.message);
       }
     });
   }
@@ -80,6 +80,10 @@ export default class App extends Component<Props> {
         console.log("SSL Provider Patch was successful");
       })
       .catch(rej => {
+        // Modern SSL servers have gotten more strict about which protocols versions they allow.
+        // If you have an old device with an unpatchable SSL Provider your update will probably fail.
+        // You should provide some sort of messaging to your users.
+        // Luckily this only applies to Android 4.x without Google Play Services, a very small percentage.
         console.log("SSL Provider patch failed", rej);
         let message = "Old Android API, and SSL Provider could not be patched.";
         if (rej.message.includes("repairable")) {
