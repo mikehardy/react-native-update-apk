@@ -1,10 +1,16 @@
 # Release Notes
 
+## 3.2.4
+
+- Enhanced the README, changed TODO to match current state of the project
+
 ## 3.2.3
+
 - Continuing to add FileProvider example notes, better exception handling
   This is easily the part that can trip people up the most
 
 ## 3.2.2
+
 - Added extensive notes to the example about purpose of each demonstrated feature
 - Altered example FileProvider name to be consistent with rn-share-blob to help users
 
