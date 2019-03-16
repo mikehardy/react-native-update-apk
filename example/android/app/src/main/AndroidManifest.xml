@@ -29,12 +29,14 @@
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
     <!-- Define a FileProvider for API24+ -->
+    <!-- note this is the authority name used by other modules like rn-fetch-blob, easy to have conflicts -->
     <provider
         android:name="android.support.v4.content.FileProvider"
         android:authorities="${applicationId}.provider"
         android:exported="false"
         android:grantUriPermissions="true">
-      <meta-data
+        <!-- you might need the tools:replace thing to workaround rn-fetch-blob or other definitions of provider -->
+      <meta-data tools:replace="android:resource"
           android:name="android.support.FILE_PROVIDER_PATHS"
           android:resource="@xml/filepaths" />
     </provider>
