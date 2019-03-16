@@ -1,5 +1,9 @@
 # Release Notes
 
+## 3.2.2
+- Added extensive notes to the example about purpose of each demonstrated feature
+- Altered example FileProvider name to be consistent with rn-share-blob to help users
+
 ## 3.2.1
 
 - Fix issue introduced in v3.0.0 with installing package on old devices

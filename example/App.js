@@ -23,14 +23,25 @@ export default class App extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
+      // If you have something in state, you will be able to provide status to users
       downloadProgress: -1
     };
 
     updater = new UpdateAPK.UpdateAPK({
-      iosAppId: "1104809018", // iOS must use App Store. This is a sample: "All Birds of Ecuador" (¡Qué lindo!)
+
+      // iOS must use App Store and this is the app ID. This is a sample: "All Birds of Ecuador" (¡Qué lindo!)
+      iosAppId: "1104809018", 
+
       apkVersionUrl:
         "https://raw.githubusercontent.com/mikehardy/react-native-update-apk/master/example/test-version.json",
-      fileProviderAuthority: "com.example.fileprovider",
+
+      // The name of this 'fileProviderAuthority' is defined in AndroidManifest.xml. THEY MUST MATCH.
+      // By default other modules like rn-fetch-blob define one (conveniently named the same as below)
+      // but if you don't match the names you will get an odd-looking XML exception:
+      // "Attempt to invoke virtual method 'android.content.res.XmlResourceParser ....' on a null object reference"
+      fileProviderAuthority: "com.example.provider",
+
+      // This is callback is called if there is a new version but it is not a forceUpdate.
       needUpdateApp: needUpdate => {
         Alert.alert(
           "Update Available",
@@ -48,22 +59,44 @@ export default class App extends Component<Props> {
           ]
         );
       },
+      
+      // This will be called before the download/update where you defined forceUpdate: true in the version JSON
       forceUpdateApp: () => {
         console.log("forceUpdateApp callback called");
       },
+
+      // Called if the current version appears to be the most recent available
       notNeedUpdateApp: () => {
         console.log("notNeedUpdateApp callback called");
       },
+
+      // This is passed to react-native-fs as a callback
       downloadApkStart: () => {
         console.log("downloadApkStart callback called");
       },
+
+      // Called with 0-99 for progress during the download
       downloadApkProgress: progress => {
         console.log(`downloadApkProgress callback called - ${progress}%...`);
+        // This is your opportunity to provide feedback to users on download progress
+        // If you hae a state variable it is trivial to update the UI
         this.setState({ downloadProgress: progress });
       },
+      
+      // This is called prior to the update. If you throw it will abort the update
       downloadApkEnd: () => {
+
+        // This could be an opportunity to check the APK signature thumbprints,
+        // If they mismatch your update will fail, the user will have to uninstall first.
+       
+        // If you implement SHAsums on the file you could detect tampering here as well
+
+        // Finally for APK25+ you should check REQUEST_INSTALL_PACKAGES permission
+        // prior to the attempt at some point, and provide guidance about "unknown sources" etc
         console.log("downloadApkEnd callback called");
       },
+
+      // This is called if the fetch of the version or the APK fails, so should be generic
       onError: err => {
         console.log("onError callback called", err);
         Alert.alert("There was an error", err.message);
@@ -72,26 +105,37 @@ export default class App extends Component<Props> {
   }
 
   async componentDidMount() {
+
     // If you want to update devices below Android 5, they have SSL issues with some servers.
     // You will get a protocol error unless you patch the SSL Provider.
-    // This will fail if they don have Google Play Services installed though.
-    UpdateAPK.patchSSLProvider()
+    // This will fail if they don't have Google Play Services installed though.
+    // You can optionally force the patch on Android 5+ with boolean param 1
+    // You can also optionally display a Google dialog for user repair (if possible) with boolean param 2
+    UpdateAPK.patchSSLProvider() 
       .then(ret => {
-        console.log("SSL Provider Patch was successful");
+
+        // This means 
+        console.log("SSL Provider Patch proceeded without error");
       })
       .catch(rej => {
-        // Modern SSL servers have gotten more strict about which protocols versions they allow.
-        // If you have an old device with an unpatchable SSL Provider your update will probably fail.
-        // You should provide some sort of messaging to your users.
+
+        // Modern SSL servers have gotten more strict about which SSL/TLS protocols/versions they allow.
+        // If you arrived here, you have an old device with an unpatchable SSL Provider, your downloads will probably fail.
+        // You should provide some sort of messaging to these users or provide updates over HTTP as needed
         // Luckily this only applies to Android 4.x without Google Play Services, a very small percentage.
         console.log("SSL Provider patch failed", rej);
         let message = "Old Android API, and SSL Provider could not be patched.";
         if (rej.message.includes("repairable")) {
+
+          // In this particular case the user may even be able to fix it with a Google Play Services update
           message +=
             " This is repairable on this device though." +
             " You should send the users to the Play Store to update Play Services...";
+          Alert.alert("Possible SSL Problem", message);
+          UpdateAPK.patchSSLProvider(false, true); // This will ask Google Play Services to help the user repair
+        } else {
+          Alert.alert("Possible SSL Problem", message);
         }
-        Alert.alert("Possible SSL Problem", message);
       });
   }
 

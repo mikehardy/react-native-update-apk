@@ -39,6 +39,7 @@ export class UpdateAPK {
 
   getApkVersionSuccess = remote => {
     console.log("getApkVersionSuccess", remote);
+    // TODO switch this to versionCode
     if (RNUpdateAPK.versionName !== remote.versionName) {
       if (remote.forceUpdate) {
         if (this.options.forceUpdateApp) {
@@ -98,8 +99,9 @@ export class UpdateAPK {
               res.signatures[0].thumbprint !==
               RNUpdateAPK.signatures[0].thumbprint
             ) {
+              // FIXME should add extra callback for this
               console.log(
-                "The signature thumbprints seem unequal. Install should fail"
+                "The signature thumbprints seem unequal. Install will fail"
               );
             }
           })
