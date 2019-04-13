@@ -36,7 +36,7 @@ fi
 \rm -fr example
 
 # Make the new example
-npx react-native init example
+react-native init example
 pushd example
 npm install https://github.com/mikehardy/react-native-update-apk.git
 npx react-native link rn-update-apk
