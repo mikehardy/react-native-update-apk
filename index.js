@@ -106,8 +106,8 @@ export class UpdateAPK {
             }
           })
           .catch(rej => {
-            console.log("apk info error: ");
-            console.log(rej);
+            console.log("apk info error: ", rej);
+            this.options.onError && this.options.onError("Failed to get Downloaded APK Info");
           });
         RNUpdateAPK.installApk(
           downloadDestPath,
@@ -118,7 +118,6 @@ export class UpdateAPK {
       })
       .catch(err => {
         this.downloadApkError(err);
-
         jobId = -1;
       });
   };
