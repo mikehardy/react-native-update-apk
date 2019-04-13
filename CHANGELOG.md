@@ -1,5 +1,9 @@
 # Release Notes
 
+## 3.2.5
+
+- Correctly call onError() when getApkInfo has a native error (like corrupt download)
+
 ## 3.2.4
 
 - Enhanced the README, changed TODO to match current state of the project
