@@ -2,6 +2,7 @@ package net.mikehardy.rnupdateapk;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -28,7 +29,9 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RNUpdateAPK extends ReactContextBaseJavaModule {
@@ -190,5 +193,29 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             Log.e("SecurityException", message);
             p.reject(new Throwable(message));
         }
+    }
+
+    @ReactMethod
+    public void getApps(Promise p) {
+        List<PackageInfo> packages = reactContext.getPackageManager().getInstalledPackages(0);
+
+        WritableArray ret = Arguments.createArray();
+        for (final PackageInfo pi : packages) {
+            ret.pushString(pi.packageName);
+        }
+        p.resolve(ret);
+    }
+
+    @ReactMethod
+    public void getNonSystemApps(Promise p) {
+        List<PackageInfo> packages = reactContext.getPackageManager().getInstalledPackages(0);
+
+        WritableArray ret = Arguments.createArray();
+        for (final PackageInfo pi : packages) {
+            if ((pi.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                ret.pushString(pi.packageName);
+            }
+        }
+        p.resolve(ret);
     }
 }

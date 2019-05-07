@@ -1,5 +1,9 @@
 # Release Notes
 
+## 3.3.0
+
+- Added getApps() and getNonSystemApps() to list installed packages
+
 ## 3.2.5
 
 - Correctly call onError() when getApkInfo has a native error (like corrupt download)

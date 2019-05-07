@@ -24,7 +24,9 @@ export default class App extends Component<Props> {
     super(props);
     this.state = {
       // If you have something in state, you will be able to provide status to users
-      downloadProgress: -1
+      downloadProgress: -1,
+      allApps: [],
+      allNonSystemApps: [],
     };
 
     updater = new UpdateAPK.UpdateAPK({
@@ -137,7 +139,17 @@ export default class App extends Component<Props> {
           Alert.alert("Possible SSL Problem", message);
         }
       });
-  }
+
+      UpdateAPK.getApps().then(apps => {
+        console.log("Installed Apps: ", apps.toString());
+        this.setState({ allApps: apps});
+      }).catch(e => console.log("Unable to getApps?", e));
+
+      UpdateAPK.getNonSystemApps().then(apps => {
+        console.log("Installed Non-System Apps: ", apps.toString());
+        this.setState({ allNonSystemApps: apps});
+      }).catch(e => console.log("Unable to getNonSystemApps?", e));
+    }
 
   _onCheckServerVersion = () => {
     console.log("checking for update");
@@ -170,6 +182,12 @@ export default class App extends Component<Props> {
           {UpdateAPK.getInstalledPackageInstaller()}
         </Text>
         <ScrollView style={{ flex: 1 }}>
+          <Text style={styles.instructions}>
+            Installed Apps: {this.state.allApps.toString()}
+          </Text>
+          <Text style={styles.instructions}>
+            Installed Non-System Apps: {this.state.allNonSystemApps.toString()}
+          </Text>
           <Text style={styles.instructions}>
             Installed Package Certificate SHA-256 Digest:
             {UpdateAPK.getInstalledSigningInfo()[0].thumbprint}

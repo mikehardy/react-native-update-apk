@@ -208,3 +208,9 @@ export function getInstalledPackageInstaller() {
 export function getInstalledSigningInfo() {
   return RNUpdateAPK.signatures;
 }
+export function getApps() {
+  return RNUpdateAPK.getApps();
+}
+export function getNonSystemApps() {
+  return RNUpdateAPK.getNonSystemApps();
+}
