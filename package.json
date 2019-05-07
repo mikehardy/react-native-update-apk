@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/mikehardy/react-native-update-apk.git"
   },
+  "scripts": {
+    "shipit": "np --no-yarn"
+  },
   "keywords": [
     "react-native",
     "react-component",
@@ -22,6 +25,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "np": "^5.0.1",
     "react-native-fs": "^2.13.3"
   },
   "devDependencies": {
