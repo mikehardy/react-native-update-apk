@@ -183,10 +183,10 @@ export default class App extends Component<Props> {
         </Text>
         <ScrollView style={{ flex: 1 }}>
           <Text style={styles.instructions}>
-            Installed Apps: {this.state.allApps.toString()}
+            Installed Apps: {JSON.stringify(this.state.allApps, null, '\t')}
           </Text>
           <Text style={styles.instructions}>
-            Installed Non-System Apps: {this.state.allNonSystemApps.toString()}
+            Installed Non-System Apps: {JSON.stringify(this.state.allNonSystemApps, null, '\t')}
           </Text>
           <Text style={styles.instructions}>
             Installed Package Certificate SHA-256 Digest:

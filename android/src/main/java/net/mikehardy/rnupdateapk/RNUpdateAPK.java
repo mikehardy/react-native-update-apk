@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,7 +200,11 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
         WritableArray ret = Arguments.createArray();
         for (final PackageInfo pi : packages) {
-            ret.pushString(pi.packageName);
+            WritableMap retPackage = Arguments.createMap();
+            retPackage.putString("name", pi.packageName);
+            retPackage.putString("firstInstallTime", Long.toString(pi.firstInstallTime));
+            retPackage.putString("lastUpdateTime", Long.toString(pi.lastUpdateTime));
+            ret.pushMap(retPackage);
         }
         p.resolve(ret);
     }
@@ -213,7 +216,11 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
         WritableArray ret = Arguments.createArray();
         for (final PackageInfo pi : packages) {
             if ((pi.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                ret.pushString(pi.packageName);
+                WritableMap retPackage = Arguments.createMap();
+                retPackage.putString("name", pi.packageName);
+                retPackage.putString("firstInstallTime", Long.toString(pi.firstInstallTime));
+                retPackage.putString("lastUpdateTime", Long.toString(pi.lastUpdateTime));
+                ret.pushMap(retPackage);
             }
         }
         p.resolve(ret);

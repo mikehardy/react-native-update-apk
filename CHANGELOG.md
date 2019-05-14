@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.0.0
+
+- Altered return object shape of previous xxxApps() APIs to return more info
+
 ## 3.3.0
 
 - Added getApps() and getNonSystemApps() to list installed packages
