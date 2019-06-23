@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
-    private ReactApplicationContext reactContext;
+    private final ReactApplicationContext reactContext;
 
     public RNUpdateAPK(ReactApplicationContext reactContext) {
         super(reactContext);
