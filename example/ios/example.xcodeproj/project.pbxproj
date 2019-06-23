@@ -39,8 +39,8 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		1A747A20790946008C6E4170 /* libRNUpdateAPK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB9BA140DA94949A4AE169E /* libRNUpdateAPK.a */; };
-		4B15D3D2FC5B4C1B97CC15BB /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D7564F268048A7AD089580 /* libRNFS.a */; };
+		11928A07A1284890B299ED84 /* libRNUpdateAPK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68A1879E744F01AD3BB209 /* libRNUpdateAPK.a */; };
+		A265B62DA63648DDB44A9438 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 607160616D1442AEB85F0D94 /* libRNFS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,10 +348,10 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		A18F60D2C4B34E9B8A3796C5 /* RNUpdateAPK.xcodeproj */ = {isa = PBXFileReference; name = "RNUpdateAPK.xcodeproj"; path = "../node_modules/rn-update-apk/ios/RNUpdateAPK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		AAB9BA140DA94949A4AE169E /* libRNUpdateAPK.a */ = {isa = PBXFileReference; name = "libRNUpdateAPK.a"; path = "libRNUpdateAPK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		481297AB2AF44B17A1A4916E /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		B4D7564F268048A7AD089580 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		654FEC1ECB754261A69FB90A /* RNUpdateAPK.xcodeproj */ = {isa = PBXFileReference; name = "RNUpdateAPK.xcodeproj"; path = "../node_modules/rn-update-apk/ios/RNUpdateAPK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BF68A1879E744F01AD3BB209 /* libRNUpdateAPK.a */ = {isa = PBXFileReference; name = "libRNUpdateAPK.a"; path = "libRNUpdateAPK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B570D7341146415291F8B068 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		607160616D1442AEB85F0D94 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,8 +380,8 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				1A747A20790946008C6E4170 /* libRNUpdateAPK.a in Frameworks */,
-				4B15D3D2FC5B4C1B97CC15BB /* libRNFS.a in Frameworks */,
+				11928A07A1284890B299ED84 /* libRNUpdateAPK.a in Frameworks */,
+				A265B62DA63648DDB44A9438 /* libRNFS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,8 +571,8 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				A18F60D2C4B34E9B8A3796C5 /* RNUpdateAPK.xcodeproj */,
-				481297AB2AF44B17A1A4916E /* RNFS.xcodeproj */,
+				654FEC1ECB754261A69FB90A /* RNUpdateAPK.xcodeproj */,
+				B570D7341146415291F8B068 /* RNFS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
