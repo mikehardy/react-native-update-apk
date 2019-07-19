@@ -41,9 +41,16 @@ repositories {
 }
 
 dependencies {
+
+    def supportLibVersion = safeExtGet('supportLibVersion', '28.0.0')
+
+    def supportLibMajorVersion = supportLibVersion.split('\\.')[0] as int
+    def appCompatLibName =  (supportLibMajorVersion < 20) ? "androidx.appcompat:appcompat" : "com.android.support:appcompat-v7"
+
+    implementation "$appCompatLibName:$supportLibVersion"
+
     def googlePlayServicesAuthVersion = safeExtGet('googlePlayServicesAuthVersion', safeExtGet('googlePlayServicesVersion', '16.0.1'))
     compileOnly "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     //noinspection GradleCompatible
-    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
     implementation "com.google.android.gms:play-services-auth:$googlePlayServicesAuthVersion"
 }
