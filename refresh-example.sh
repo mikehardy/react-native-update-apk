@@ -28,8 +28,6 @@ else
 
   # Build is custom - Play services, and if you don't sign with the same key, updates will fail
   cp example/android/keystores/debug.keystore* TEMP/android/keystores/ || true
-  cp example/android/build.gradle TEMP/android/ || true
-  cp example/android/app/build.gradle TEMP/android/app/ || true
 fi
 
 # Purge the old sample
@@ -39,8 +37,13 @@ fi
 react-native init example
 pushd example
 npm install https://github.com/mikehardy/react-native-update-apk.git
-npx react-native link rn-update-apk
-npx react-native link react-native-fs
+npm install react-native-fs
+
+sed -i -e $'s/supportLibVersion = "28.0.0"/supportLibVersion = "1.0.2"/' android/build.gradle
+rm -f android/build.gradle??
+
+sed -i -e $'s/storeFile file(\'debug.keystore\')/storeFile rootProject.file("keystores\/debug.keystore")/' android/app/build.gradle
+
 
 # Copy the important files back in
 popd
