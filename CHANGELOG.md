@@ -1,8 +1,12 @@
 # Release Notes
 
-## 4.0.1
+## 4.0.2
 
 - Backwards-compatible support for react-native 0.60
+
+## 4.0.1
+
+- Allow seperate versioning for Play Services auth
 
 ## 4.0.0
 
