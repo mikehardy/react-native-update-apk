@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.0.1
+
+- Backwards-compatible support for react-native 0.60
+
 ## 4.0.0
 
 - Altered return object shape of previous xxxApps() APIs to return more info
