@@ -190,10 +190,10 @@ export default class App extends Component<Props> {
           </Text>
           <Text style={styles.instructions}>
             Installed Package Certificate SHA-256 Digest:
-            {UpdateAPK.getInstalledSigningInfo()[0].thumbprint}
+            { UpdateAPK.getInstalledSigningInfo() ? UpdateAPK.getInstalledSigningInfo()[0].thumbprint : "" }
           </Text>
           <Text style={styles.instructions}>
-            {UpdateAPK.getInstalledSigningInfo()[0].toString}
+            { UpdateAPK.getInstalledSigningInfo() ? UpdateAPK.getInstalledSigningInfo()[0].toString : "" }
           </Text>
         </ScrollView>
         {this.state.downloadProgress != -1 && (
