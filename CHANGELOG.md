@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.1.0
+
+- Add cocoapods support / example fix for iOS
+
 ## 4.0.2
 
 - Backwards-compatible support for react-native 0.60
