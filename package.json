@@ -1,6 +1,6 @@
 {
   "name": "rn-update-apk",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Check for new APK versions and update app from React Native",
   "main": "index.js",
   "repository": {
