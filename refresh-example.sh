@@ -3,7 +3,7 @@ set -e
 
 echo "You should run this from directory where you have cloned the react-native-update-apk repo"
 echo "You should only do this when your git working set is completely clean (e.g., git reset --hard)"
-echo "You must have already run \`npm install\` in the repository so \`npx react-native\` will work"
+echo "You must have already run \`yarn\` in the repository so \`npx react-native\` will work"
 echo "This scaffolding refresh has been tested on macOS, if you use it on linux, it might not work"
 
 # Copy the important files out temporarily
@@ -36,8 +36,8 @@ fi
 # Make the new example
 react-native init example
 pushd example
-npm install https://github.com/mikehardy/react-native-update-apk.git
-npm install react-native-fs
+yarn add https://github.com/mikehardy/react-native-update-apk.git
+yarn add react-native-fs
 
 sed -i -e $'s/supportLibVersion = "28.0.0"/supportLibVersion = "1.0.2"/' android/build.gradle
 rm -f android/build.gradle??
