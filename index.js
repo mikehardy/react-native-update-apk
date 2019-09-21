@@ -27,7 +27,7 @@ export class UpdateAPK {
       return;
     }
     if (!this.options.apkVersionUrl) {
-      console.log("apkVersionUrl doesn't exist.");
+      console.log("RNUpdateAPK::getApkVersion - apkVersionUrl doesn't exist.");
       return;
     }
     this.GET(
@@ -66,7 +66,7 @@ export class UpdateAPK {
         this.options.downloadApkProgress(percentage);
     };
     const begin = res => {
-      console.log("downloadApkStart");
+      console.log("RNUpdateAPK::downloadApk - downloadApkStart");
       this.options.downloadApkStart && this.options.downloadApkStart();
     };
     const progressDivider = 1;
@@ -87,14 +87,14 @@ export class UpdateAPK {
 
     ret.promise
       .then(res => {
-        console.log("downloadApkEnd");
+        console.log("RNUpdateAPK::downloadApk - downloadApkEnd");
         this.options.downloadApkEnd && this.options.downloadApkEnd();
         RNUpdateAPK.getApkInfo(downloadDestPath)
           .then(res => {
             console.log(
-              "Old Cert SHA-256: " + RNUpdateAPK.signatures[0].thumbprint
+              "RNUpdateAPK::downloadApk - Old Cert SHA-256: " + RNUpdateAPK.signatures[0].thumbprint
             );
-            console.log("New Cert SHA-256: " + res.signatures[0].thumbprint);
+            console.log("RNUpdateAPK::downloadApk - New Cert SHA-256: " + res.signatures[0].thumbprint);
             if (
               res.signatures[0].thumbprint !==
               RNUpdateAPK.signatures[0].thumbprint
@@ -106,7 +106,7 @@ export class UpdateAPK {
             }
           })
           .catch(rej => {
-            console.log("apk info error: ", rej);
+            console.log("RNUpdateAPK::downloadApk - apk info error: ", rej);
             this.options.onError && this.options.onError("Failed to get Downloaded APK Info");
           });
         RNUpdateAPK.installApk(
@@ -124,14 +124,14 @@ export class UpdateAPK {
 
   getAppStoreVersion = () => {
     if (!this.options.iosAppId) {
-      console.log("iosAppId doesn't exist.");
+      console.log("RNUpdateAPK::getAppStoreVersion - iosAppId doesn't exist.");
       return;
     }
     const URL =
       "https://itunes.apple.com/us/app/apple-store/id" +
       this.options.iosAppId +
       "?mt=8";
-    console.log("attempting to fetch " + URL);
+    console.log("RNUpdateAPK::getAppStoreVersion - attempting to fetch " + URL);
     this.GET(
       URL,
       this.getAppStoreVersionSuccess.bind(this),
@@ -141,7 +141,7 @@ export class UpdateAPK {
 
   getAppStoreVersionSuccess = data => {
     if (data.resultCount < 1) {
-      console.log("iosAppId is wrong.");
+      console.log("RNUpdateAPK::getAppStoreVersionSuccess - iosAppId is wrong.");
       return;
     }
     const result = data.results[0];
@@ -159,12 +159,12 @@ export class UpdateAPK {
   };
 
   getVersionError = err => {
-    console.log("getVersionError", err);
+    console.log("RNUpdateAPK::getVersionError - getVersionError", err);
     this.options.onError && this.options.onError(err);
   };
 
   downloadApkError = err => {
-    console.log("downloadApkError", err);
+    console.log("RNUpdateAPK::downloadApkError - downloadApkError", err);
     this.options.onError && this.options.onError(err);
   };
 
