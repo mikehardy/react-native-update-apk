@@ -38,8 +38,7 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(installFromAppStore:(nonnull NSString *)trackViewURL) {
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *URL = [NSURL URLWithString:trackViewURL];
-    
-    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+    if (@available(iOS 10.0, *)) {
         [application openURL:URL options:@{} completionHandler:nil];
     } else {
         [application openURL:URL];
