@@ -219,9 +219,17 @@ export function getInstalledPackageInstaller() {
 export function getInstalledSigningInfo() {
   return RNUpdateAPK.signatures;
 }
-export function getApps() {
-  return RNUpdateAPK.getApps();
+export async function getApps() {
+  if (Platform.OS === "android") {
+    return RNUpdateAPK.getApps();
+  } else {
+    return Promise.resolve([]);
+  }
 }
-export function getNonSystemApps() {
-  return RNUpdateAPK.getNonSystemApps();
+export async function getNonSystemApps() {
+  if (Platform.OS === "android") {
+    return RNUpdateAPK.getNonSystemApps();
+  } else {
+    return Promise.resolve([]);
+  }
 }
