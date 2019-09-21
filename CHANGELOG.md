@@ -2,6 +2,8 @@
 
 ## 4.2.0
 
+- compare by version code first, fallback to version name (Fixes #9)
+- prefix all log output with `RNUpdateAPK::<method name>`
 - switch to yarn from npm
 
 ## 4.1.0

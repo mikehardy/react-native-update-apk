@@ -40,7 +40,16 @@ export class UpdateAPK {
   getApkVersionSuccess = remote => {
     console.log("getApkVersionSuccess", remote);
     // TODO switch this to versionCode
-    if (RNUpdateAPK.versionName !== remote.versionName) {
+    let outdated = false;
+    if (remote.versionCode && (remote.versionCode > RNUpdateAPK.versionCode)) {
+      console.log('RNUpdateAPK::getApkVersionSuccess - outdated based on code, local/remote: ' + RNUpdateAPK.versionCode + "/" + remote.versionCode);
+      outdated = true;
+    }
+    if (!remote.versionCode && (RNUpdateAPK.versionName !== remote.versionName)) {
+      console.log('RNUpdateAPK::getApkVersionSuccess - APK outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + remote.versionName);
+      outdated = true;
+    }
+    if (outdated) {
       if (remote.forceUpdate) {
         if (this.options.forceUpdateApp) {
           this.options.forceUpdateApp();
