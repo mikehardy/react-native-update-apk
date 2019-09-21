@@ -11,10 +11,10 @@ import React, { Component } from "react";
 import {
   Alert,
   Button,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
-  View
+  Text
 } from "react-native";
 import * as UpdateAPK from "rn-update-apk";
 
@@ -158,7 +158,7 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}>rn-update-apk example</Text>
         <Text style={styles.instructions}>
           Installed Package Name: {UpdateAPK.getInstalledPackageName()}
@@ -205,7 +205,7 @@ export default class App extends Component<Props> {
           title="Check Server For Update"
           onPress={this._onCheckServerVersion}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
