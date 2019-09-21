@@ -43,7 +43,7 @@ export default class App extends Component<Props> {
       // "Attempt to invoke virtual method 'android.content.res.XmlResourceParser ....' on a null object reference"
       fileProviderAuthority: "com.example.provider",
 
-      // This is callback is called if there is a new version but it is not a forceUpdate.
+      // This callback is called if there is a new version but it is not a forceUpdate.
       needUpdateApp: needUpdate => {
         Alert.alert(
           "Update Available",
@@ -141,12 +141,12 @@ export default class App extends Component<Props> {
       });
 
       UpdateAPK.getApps().then(apps => {
-        console.log("Installed Apps: ", apps.toString());
+        console.log("Installed Apps: ", JSON.stringify(apps));
         this.setState({ allApps: apps});
       }).catch(e => console.log("Unable to getApps?", e));
 
       UpdateAPK.getNonSystemApps().then(apps => {
-        console.log("Installed Non-System Apps: ", apps.toString());
+        console.log("Installed Non-System Apps: ", JSON.stringify(apps));
         this.setState({ allNonSystemApps: apps});
       }).catch(e => console.log("Unable to getNonSystemApps?", e));
     }
