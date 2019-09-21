@@ -117,6 +117,8 @@ export class UpdateAPK {
           .catch(rej => {
             console.log("RNUpdateAPK::downloadApk - apk info error: ", rej);
             this.options.onError && this.options.onError("Failed to get Downloaded APK Info");
+            // re-throw so we don't attempt to install the APK, this will call the downloadApkError handler
+            throw rej;
           });
         RNUpdateAPK.installApk(
           downloadDestPath,

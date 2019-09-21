@@ -3,6 +3,7 @@
 ## 4.2.0
 
 - compare by version code first, fallback to version name (Fixes #9)
+- attempt fix onError() not called when reading APK info fails after download (Fixes #14)
 - prefix all log output with `RNUpdateAPK::<method name>`
 - switch to yarn from npm
 
