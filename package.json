@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev-copy": "cp -r index.js android ios example/node_modules/rn-update-apk/",
-    "shipit": "np --no-yarn"
+    "shipit": "np"
   },
   "keywords": [
     "react-native",
@@ -26,7 +26,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "np": "^5.0.3",
+    "np": "^5.1.0",
     "react-native-fs": "^2.14.1"
   },
   "devDependencies": {

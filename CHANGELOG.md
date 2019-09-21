@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.2.0
+
+- switch to yarn from npm
+
 ## 4.1.0
 
 - Add cocoapods support / example fix for iOS
