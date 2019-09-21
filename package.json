@@ -8,7 +8,7 @@
     "url": "git+https://github.com/mikehardy/react-native-update-apk.git"
   },
   "scripts": {
-    "dev-copy": "cp -r index.js android ios example/node_modules/rn-update-apk/",
+    "dev-sync": "cp -r index.js android ios example/node_modules/rn-update-apk/",
     "shipit": "np"
   },
   "keywords": [
