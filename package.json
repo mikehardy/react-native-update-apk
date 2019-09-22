@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev-sync": "cp -r index.js android ios example/node_modules/rn-update-apk/",
-    "shipit": "np"
+    "shipit": "np",
+    "test": "echo no tests yet"
   },
   "keywords": [
     "react-native",
