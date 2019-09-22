@@ -2,10 +2,13 @@
 
 ## 4.2.0
 
-- compare by version code first, fallback to version name (Fixes #9)
-- attempt fix onError() not called when reading APK info fails after download (Fixes #14)
-- prefix all log output with `RNUpdateAPK::<method name>`
-- switch to yarn from npm
+- feat: compare by version code first, fallback to version name (Fixes #9)
+- fix: handle openURL deprecation warning with iOS9 protection (Fixes #15)
+- fix: attempt fix onError() not called when reading APK info fails after download (Fixes #14)
+- fix: attempt to eliminate main queue setup warning in iOS
+- build: only define android project for module maintenance, not in projects (https://github.com/react-native-community/discussions-and-proposals/issues/151#issuecomment-532787908)
+- chore: prefix all log output with `RNUpdateAPK::<method name>`
+- chore: switch to yarn from npm
 
 ## 4.1.0
 
