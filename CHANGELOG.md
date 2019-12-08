@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.3.0
+- feat: expose content length and bytes written to progress call back as args 2 & 3 (thanks @cani1see!)
+- fix: use implementation vs compileOnly for android react-native dep (thanks @@ilianamarcano!)
+
 ## 4.2.1
 
 - fix: 'np' package should be a dev dependency (thanks @nuKs!)
