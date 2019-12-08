@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.2.1
+
+- fix: 'np' package should be a dev dependency (thanks @nuKs!)
+- chore: update refresh-example to use modern android libraries
+- chore: update example using refresh-example
+
 ## 4.2.0
 
 - feat: compare by version code first, fallback to version name (Fixes #9)
