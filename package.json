@@ -27,12 +27,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "react-native-fs": "^2.14.1"
+    "react-native-fs": "^2.16.2"
   },
   "devDependencies": {
-    "@react-native-community/cli": "^2.9.0",
-    "prettier": "^1.18.2",
-    "np": "^5.1.0"
+    "@react-native-community/cli": "^3.0.4",
+    "np": "^5.2.1",
+    "prettier": "^1.19.1"
   },
   "nativePackage": true,
   "publishConfig": {
