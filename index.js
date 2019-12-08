@@ -72,7 +72,7 @@ export class UpdateAPK {
     const progress = data => {
       const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
       this.options.downloadApkProgress &&
-        this.options.downloadApkProgress(percentage);
+        this.options.downloadApkProgress(percentage, data.contentLength, data.bytesWritten);
     };
     const begin = res => {
       console.log("RNUpdateAPK::downloadApk - downloadApkStart");
