@@ -26,6 +26,11 @@ export class UpdateAPK {
     if (jobId !== -1) {
       return;
     }
+    
+    // use apk version config file for server oriented apps
+    if (this.options.apkVersionConfig)
+      return this.getApkVersionSuccess(this.options.apkVersionConfig);
+    
     if (!this.options.apkVersionUrl) {
       console.log("RNUpdateAPK::getApkVersion - apkVersionUrl doesn't exist.");
       return;
