@@ -2,6 +2,7 @@ package net.mikehardy.rnupdateapk;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,7 +10,10 @@ import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import androidx.core.content.FileProvider;
+
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -32,6 +36,17 @@ import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.common.IntentSenderForResultStarter;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 
 public class RNUpdateAPK extends ReactContextBaseJavaModule {
 
@@ -224,5 +239,149 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             }
         }
         p.resolve(ret);
+    }
+
+    private static final int REQ_CODE_VERSION_UPDATE = 530;
+    private AppUpdateManager appUpdateManager;
+    private InstallStateUpdatedListener installStateUpdatedListener;
+
+    @ReactMethod
+    private void checkForAppUpdate(Promise p) {
+        // Creates instance of the manager.
+        appUpdateManager = AppUpdateManagerFactory.create(reactContext);
+
+        // Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        // Create a listener to track request state updates.
+        installStateUpdatedListener = new InstallStateUpdatedListener() {
+            @Override
+            public void onStateUpdate(InstallState installState) {
+                // Show module progress, log state, or install the update.
+                if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+                    // After the update is downloaded, show a notification
+                    // and request user confirmation to restart the app.
+//                    popupSnackbarForCompleteUpdateAndUnregister();
+                    unregisterInstallStateUpdListener();
+                    p.resolve(InstallStatus.DOWNLOADED);
+                }
+            }
+        };
+
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            int availability = appUpdateInfo.updateAvailability();
+            if (availability == UpdateAvailability.UPDATE_AVAILABLE) {
+                // Request the update.
+                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+
+                    // Before starting an update, register a listener for updates.
+                    appUpdateManager.registerListener(installStateUpdatedListener);
+                    // Start an update.
+                    startAppUpdateFlexible(appUpdateInfo);
+                } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) ) {
+                    // Start an update.
+                    startAppUpdateImmediate(appUpdateInfo);
+                }
+            }
+            else if (availability == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+                unregisterInstallStateUpdListener();
+                p.resolve(InstallStatus.DOWNLOADED);
+            }
+        });
+        appUpdateInfoTask.addOnFailureListener(info -> {
+            Log.w("update failed", info);
+        });
+    }
+
+    @ReactMethod
+    private void startAppUpdateImmediate(AppUpdateInfo appUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    // The current activity making the update request.
+                    this.reactContext.getCurrentActivity(),
+                    // Include a request code to later monitor this update request.
+                    REQ_CODE_VERSION_UPDATE);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @ReactMethod
+    private void startAppUpdateFlexible(AppUpdateInfo appUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.FLEXIBLE,
+                    // The current activity making the update request.
+                    this.reactContext.getCurrentActivity(),
+                    // Include a request code to later monitor this update request.
+                    REQ_CODE_VERSION_UPDATE);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+            unregisterInstallStateUpdListener();
+        }
+    }
+
+    @ReactMethod
+    public void completeUpdate(){
+        appUpdateManager.completeUpdate();
+    }
+
+    /**
+     * Displays the snackbar notification and call to action.
+     * Needed only for Flexible app update
+     */
+//    private void popupSnackbarForCompleteUpdateAndUnregister() {
+//        Snackbar snackbar =
+//                Snackbar.make(drawerLayout, getString(R.string.update_downloaded), Snackbar.LENGTH_INDEFINITE);
+//        snackbar.setAction(R.string.restart, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                appUpdateManager.completeUpdate();
+//            }
+//        });
+//        snackbar.setActionTextColor(getResources().getColor(R.color.action_color));
+//        snackbar.show();
+//
+//        unregisterInstallStateUpdListener();
+//    }
+
+    /**
+     * Checks that the update is not stalled during 'onResume()'.
+     * However, you should execute this check at all app entry points.
+     */
+    @ReactMethod
+    private void checkNewAppVersionState(Promise p) {
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+                            //FLEXIBLE:
+                            // If the update is downloaded but not installed,
+                            // notify the user to complete the update.
+                            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+//                                popupSnackbarForCompleteUpdateAndUnregister();
+                                p.resolve(InstallStatus.DOWNLOADED);
+                            }
+
+                            //IMMEDIATE:
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                startAppUpdateImmediate(appUpdateInfo);
+                            }
+                        });
+
+    }
+
+    /**
+     * Needed only for FLEXIBLE update
+     */
+    private void unregisterInstallStateUpdListener() {
+        if (appUpdateManager != null && installStateUpdatedListener != null)
+            appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
 }
