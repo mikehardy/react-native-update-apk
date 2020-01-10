@@ -60,7 +60,7 @@ export class UpdateAPK {
           if (isUpdate) {
             this.downloadApk(remote);
           }
-        });
+        }, remote);
       }
     } else if (this.options.notNeedUpdateApp) {
       this.options.notNeedUpdateApp();
