@@ -1,6 +1,12 @@
 # Release Notes
 
+## 4.3.1
+
+-- fix: obtain android appcompat library from appCompatVersion gradle variable if possible (@mikehardy)
+-- chore: update dependencies (@mikehardy)
+
 ## 4.3.0
+
 - feat: expose content length and bytes written to progress call back as args 2 & 3 (thanks @cani1see!)
 - fix: use implementation vs compileOnly for android react-native dep (thanks @@ilianamarcano!)
 
