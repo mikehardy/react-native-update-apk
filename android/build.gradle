@@ -8,7 +8,7 @@ buildscript {
             jcenter()
         }
         dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.0'
+            classpath 'com.android.tools.build:gradle:3.6.1'
         }
     }
 }
@@ -46,12 +46,12 @@ repositories {
 
 dependencies {
 
-    def supportLibVersion = safeExtGet('supportLibVersion', '28.0.0')
+    def appCompatLibVersion = safeExtGet('appCompatVersion', safeExtGet('supportLibVersion', '28.0.0'))
 
-    def supportLibMajorVersion = supportLibVersion.split('\\.')[0] as int
+    def supportLibMajorVersion = appCompatLibVersion.split('\\.')[0] as int
     def appCompatLibName =  (supportLibMajorVersion < 20) ? "androidx.appcompat:appcompat" : "com.android.support:appcompat-v7"
 
-    implementation "$appCompatLibName:$supportLibVersion"
+    implementation "$appCompatLibName:$appCompatLibVersion"
 
     def googlePlayServicesAuthVersion = safeExtGet('googlePlayServicesAuthVersion', safeExtGet('googlePlayServicesVersion', '16.0.1'))
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
