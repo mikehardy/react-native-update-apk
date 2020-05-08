@@ -11,7 +11,7 @@ export class UpdateAPK {
     this.options = options;
   }
 
-  GET = (url, success, error) => {
+  get = (url, success, error) => {
     fetch(url)
       .then(response => response.json())
       .then(json => {
@@ -30,7 +30,7 @@ export class UpdateAPK {
       console.log("RNUpdateAPK::getApkVersion - apkVersionUrl doesn't exist.");
       return;
     }
-    this.GET(
+    this.get(
       this.options.apkVersionUrl,
       this.getApkVersionSuccess.bind(this),
       this.getVersionError.bind(this)
@@ -143,7 +143,7 @@ export class UpdateAPK {
       this.options.iosAppId +
       "?mt=8";
     console.log("RNUpdateAPK::getAppStoreVersion - attempting to fetch " + URL);
-    this.GET(
+    this.get(
       URL,
       this.getAppStoreVersionSuccess.bind(this),
       this.getVersionError.bind(this)
