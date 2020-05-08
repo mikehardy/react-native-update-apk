@@ -34,7 +34,7 @@ fi
 \rm -fr example
 
 # Make the new example
-react-native init example
+npx react-native init example
 pushd example
 yarn add https://github.com/mikehardy/react-native-update-apk.git
 yarn add react-native-fs
