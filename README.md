@@ -69,7 +69,8 @@ instead of a non-JSON XML document
 {
   "versionName":"1.0.0",
   "apkUrl":"https://github.com/NewApp.apk",
-  "forceUpdate": false
+  "forceUpdate": false,
+  "whatsNew": "<< what changes the app update will bring >>"
 }
 ```
 
