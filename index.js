@@ -11,8 +11,8 @@ export class UpdateAPK {
     this.options = options;
   }
 
-  get = (url, success, error) => {
-    fetch(url)
+  get = (url, success, error, options = {}) => {
+    fetch(url, options)
       .then(response => response.json())
       .then(json => {
         success && success(json);
@@ -33,7 +33,8 @@ export class UpdateAPK {
     this.get(
       this.options.apkVersionUrl,
       this.getApkVersionSuccess.bind(this),
-      this.getVersionError.bind(this)
+      this.getVersionError.bind(this),
+      this.options.apkVersionOptions
     );
   };
 

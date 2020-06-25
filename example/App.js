@@ -37,6 +37,12 @@ export default class App extends Component<Props> {
       apkVersionUrl:
         "https://raw.githubusercontent.com/mikehardy/react-native-update-apk/master/example/test-version.json",
 
+      //apkVersionOptions is optional, you should use it if you need to pass options to fetch request
+      apkVersionOptions: {
+        method:'GET',
+        headers: {}
+      },
+      
       // The name of this 'fileProviderAuthority' is defined in AndroidManifest.xml. THEY MUST MATCH.
       // By default other modules like rn-fetch-blob define one (conveniently named the same as below)
       // but if you don't match the names you will get an odd-looking XML exception:
