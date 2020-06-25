@@ -1,5 +1,15 @@
 # Release Notes
 
+## 4.4.0
+
+-- feat: add apkVersionOptions for custom HTTP method/headers (#33, thanks @rejunges!)
+-- feat: add whatsNew to version object definition (#32, thanks @bshubham80!)
+-- fix: use different / more generic URL for iOS app lookup (#30, thanks @jiapeng007!)
+
+## 4.3.2
+
+-- fix: Capital GET breaks babel compile (#28, thanks @gstcyr!)
+
 ## 4.3.1
 
 -- fix: obtain android appcompat library from appCompatVersion gradle variable if possible (@mikehardy)
@@ -8,7 +18,7 @@
 ## 4.3.0
 
 - feat: expose content length and bytes written to progress call back as args 2 & 3 (thanks @cani1see!)
-- fix: use implementation vs compileOnly for android react-native dep (thanks @@ilianamarcano!)
+- fix: use implementation vs compileOnly for android react-native dep (thanks @ilianamarcano!)
 
 ## 4.2.1
 
