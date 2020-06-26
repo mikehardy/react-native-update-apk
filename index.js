@@ -84,22 +84,29 @@ export class UpdateAPK {
     // You might check {totalSpace, freeSpace} = await RNFS.getFSInfo() to make sure there is room
     const downloadDestPath = `${RNFS.CachesDirectoryPath}/NewApp.apk`;
 
-    let headers = this.options.apkHeaders ? this.options.apkHeaders : {};
+    let options = this.options.apkOptions ? this.options.apkOptions : {};
 
-    const ret = RNFS.downloadFile({
-      fromUrl: remote.apkUrl,
-      toFile: downloadDestPath,
-      headers: headers,
-      begin,
-      progress,
-      background: true,
-      progressDivider
-    });
+    const ret = RNFS.downloadFile(
+      Object.assign(
+        {
+          fromUrl: remote.apkUrl,
+          toFile: downloadDestPath,
+          begin,
+          progress,
+          background: true,
+          progressDivider
+        },
+        options
+      )
+    );
 
     jobId = ret.jobId;
 
     ret.promise
       .then(res => {
+        if (res['statusCode'] >= 400 && res['statusCode'] <= 599){
+          throw "Failed to Download APK. Server returned with " + res['statusCode'] + " statusCode";
+        }
         console.log("RNUpdateAPK::downloadApk - downloadApkEnd");
         this.options.downloadApkEnd && this.options.downloadApkEnd();
         RNUpdateAPK.getApkInfo(downloadDestPath)

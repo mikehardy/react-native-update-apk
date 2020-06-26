@@ -43,9 +43,13 @@ export default class App extends Component<Props> {
         headers: {}
       },
       
-      //apkHeaders is optional and it is an object of headers to be passed to the server
-      //You should use it if you need to pass headers besides the url (apkUrl from test-version.json) to download the new APK
-      apkHeaders: {},
+      //apkOptions is optional
+      //Complements or replaces the DownloadFileOptions (from react-native-fs) to download the new APK
+      //By default the following options are already set: fromUrl, toFile, begin, progress, background and progressDivider
+      //You should use it if you need to pass additional information (for example: headers) to download the new APK
+      apkOptions: {
+        headers: {}
+      },
 
       // The name of this 'fileProviderAuthority' is defined in AndroidManifest.xml. THEY MUST MATCH.
       // By default other modules like rn-fetch-blob define one (conveniently named the same as below)
