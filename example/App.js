@@ -43,6 +43,10 @@ export default class App extends Component<Props> {
         headers: {}
       },
       
+      //apkHeaders is optional and it is an object of headers to be passed to the server
+      //You should use it if you need to pass headers besides the url (apkUrl from test-version.json) to download the new APK
+      apkHeaders: {},
+
       // The name of this 'fileProviderAuthority' is defined in AndroidManifest.xml. THEY MUST MATCH.
       // By default other modules like rn-fetch-blob define one (conveniently named the same as below)
       // but if you don't match the names you will get an odd-looking XML exception:

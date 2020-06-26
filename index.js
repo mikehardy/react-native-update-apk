@@ -84,9 +84,12 @@ export class UpdateAPK {
     // You might check {totalSpace, freeSpace} = await RNFS.getFSInfo() to make sure there is room
     const downloadDestPath = `${RNFS.CachesDirectoryPath}/NewApp.apk`;
 
+    let headers = this.options.apkHeaders ? this.options.apkHeaders : {};
+
     const ret = RNFS.downloadFile({
       fromUrl: remote.apkUrl,
       toFile: downloadDestPath,
+      headers: headers,
       begin,
       progress,
       background: true,
