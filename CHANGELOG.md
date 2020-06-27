@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.5.0
+
+- feat: add apkOptions for custom HTTP method/headers in APK fetch (#34, thanks again @rejunges!)
+
 ## 4.4.0
 
 - feat: add apkVersionOptions for custom HTTP method/headers (#33, thanks @rejunges!)
