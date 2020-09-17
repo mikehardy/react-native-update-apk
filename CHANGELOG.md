@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.5.1
+
+- fix(ios): depend directly on React-Core instead of transitively via React (@mikehardy)
+
 ## 4.5.0
 
 - feat: add apkOptions for custom HTTP method/headers in APK fetch (#34, thanks again @rejunges!)
