@@ -149,7 +149,7 @@ export class UpdateAPK {
       console.log("RNUpdateAPK::getAppStoreVersion - iosAppId doesn't exist.");
       return;
     }
-    const URL = "https://itunes.apple.com/lookup?id=" + this.options.iosAppId;
+    const URL = "https://itunes.apple.com/lookup?=bundleId=" + this.options.iosAppId + "&country=" + this.options.iOSAppCountry;
     console.log("RNUpdateAPK::getAppStoreVersion - attempting to fetch " + URL);
     this.get(
       URL,
