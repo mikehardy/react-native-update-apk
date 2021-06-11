@@ -60,7 +60,7 @@ export default class App extends Component<Props> {
       // if set to true, compare version name by parts. e.g. 1.0.01 === 1.0.1 
       compareVersionNameByParts: false,
       // This callback is called if there is a new version but it is not a forceUpdate.
-      needUpdateApp: needUpdate => {
+      needUpdateApp: performUpdate => {
         Alert.alert(
           "Update Available",
           "New version released, do you want to update? " +
@@ -72,8 +72,8 @@ export default class App extends Component<Props> {
             { text: "Cancel", onPress: () => {} },
             // Note, apps can be large. You may want to check if the network is metered (cellular data) to be nice.
             // Note that the user will likely get a popup saying the device is set to block installs from uknown sources.
-            // ...you will need to guide them through that, maybe by explaining it here, before you call needUpdate(true);
-            { text: "Update", onPress: () => needUpdate(true) }
+            // ...you will need to guide them through that, maybe by explaining it here, before you call performUpdate(true);
+            { text: "Update", onPress: () => performUpdate(true) }
           ]
         );
       },
