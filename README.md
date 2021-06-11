@@ -3,7 +3,6 @@
 [![npm monthly downloads](https://img.shields.io/npm/dm/rn-update-apk.svg)](https://img.shields.io/npm/dm/rn-update-apk.svg)
 [![npm weekly downloads](https://img.shields.io/npm/dw/rn-update-apk.svg)](https://img.shields.io/npm/dw/rn-update-apk.svg)
 
-
 # React Native Update APK
 
 Easily check for new APKs and install them in React Native.
@@ -14,21 +13,12 @@ Easily check for new APKs and install them in React Native.
 npm install rn-update-apk --save
 ```
 
-Linking automatically with react-native link
-
-```bash
-react-native link rn-update-apk
-react-native link react-native-fs
-```
-
 ## Manual steps for Android
 
 1. **FileProviders:** Android API24+ requires the use of a FileProvider to share "content" (like
    downloaded APKs) with other applications (like the system installer, to install
    the APK update). So you must add a FileProvider entry to your [AndroidManifest.xml](example/android/app/src/main/AndroidManifest.xml),
    and it will reference a "[filepaths](example/android/app/src/main/res/xml/filepaths.xml)" XML file. Both are demonstrated in the example as linked here.
-
-1. **Play Services** If you use Google Play Services, make sure to define 'googlePlayServicesVersion' as the correct version in [your main build.gradle](example/android/build.gradle) so you don't have crashes related to version mismatches. If you don't have 'com.google.android.gms:play-services-auth' as a dependency yet you will need to add it as a dependency in [your app build.gradle](example/android/app/build.gradle) as well - this is used to workaround SSL bugs for Android API16-20.
 
 1. **Permissions** For Android 25+ you need to add REQUEST_INSTALL_PACKAGES to your [AndroidManifest.xml](example/android/app/src/main/AndroidManifest.xml)
 
@@ -46,14 +36,7 @@ See the [Changelog](CHANGELOG.md) on github
 
 ## Testing
 
-This application has been tested on API16-API28 Android and will work for anything running API21+, plus any APIs between 16-20 that have Google Play Services. Specifically:
-
-- API16 (Android 4.0) and up HTTP Updates + Emulators or Real Devices: works fine
-- API21 (Android 5) and up HTTPS Updates + Emulators or Real Devices: works fine
-- API16-API20 (Android 4.x) HTTPS Updates + Emulators: fails - platform SSL bug + no Google Play Services to patch it on these old emulators
-- API16-API20 (Android 4.x) HTTPS Updates + Real Devices: works fine with Google Play Services to patch platform SSL bug
-
-The only conditions where it won't work on real devices are for HTTPS updates to Android 4.x devices that do not have Google Play Services - a very very small percentage of the market at this point. Use HTTP if it is vital to reach those devices.
+This application has been tested on API21+. Older versions of this library also supported API16-20 with HTTPS updates working via a patch to SSL services achieved via Google Play Services. This has been removed now that react-native only supports API21+. Use older versions if you support API16-20.
 
 ## Version JSON example
 

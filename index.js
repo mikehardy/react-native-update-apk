@@ -196,16 +196,6 @@ export class UpdateAPK {
   };
 }
 
-// Returns a Promise with either boolean true for success, or the Exception on error
-export function patchSSLProvider(force = false, dialogIfRepairable = false) {
-  if (Platform.OS !== "android") {
-    return Promise.resolve(true);
-  }
-
-  console.log("Attempting to patch SSL Provider");
-  return RNUpdateAPK.patchSSLProvider(force, dialogIfRepairable);
-}
-
 export function getInstalledVersionName() {
   return RNUpdateAPK.versionName;
 }

@@ -39,8 +39,7 @@ pushd example
 yarn add https://github.com/mikehardy/react-native-update-apk.git
 yarn add react-native-fs
 
-sed -i -e $'s/ext {$/ext {\\\n        supportLibVersion = "1.1.0"/' android/build.gradle
-sed -i -e $'s/ext {$/ext {\\\n        appCompatVersion = "1.1.0"/' android/build.gradle
+sed -i -e $'s/ext {$/ext {\\\n        appCompatVersion = "1.3.0"/' android/build.gradle
 rm -f android/build.gradle??
 
 sed -i -e $'s/storeFile file(\'debug.keystore\')/storeFile rootProject.file("keystores\/debug.keystore")/' android/app/build.gradle
