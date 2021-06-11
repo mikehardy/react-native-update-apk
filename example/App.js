@@ -57,6 +57,8 @@ export default class App extends Component<Props> {
       // "Attempt to invoke virtual method 'android.content.res.XmlResourceParser ....' on a null object reference"
       fileProviderAuthority: "com.example.provider",
 
+      // if set to true, compare version name by parts. e.g. 1.0.01 === 1.0.1 
+      compareVersionNameByParts: false,
       // This callback is called if there is a new version but it is not a forceUpdate.
       needUpdateApp: needUpdate => {
         Alert.alert(
