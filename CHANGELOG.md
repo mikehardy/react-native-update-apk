@@ -1,5 +1,10 @@
 # Release Notes
 
+## 5.0.0
+
+- BREAKING: remove patchSSLProvider() - was only needed for Android 4.x, react-native no longer supports 4.x
+- BREAKING: forward port to AndroidX, depends on androidx.appcompat only now
+
 ## 4.5.1
 
 - fix(ios): depend directly on React-Core instead of transitively via React (@mikehardy)

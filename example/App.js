@@ -121,39 +121,6 @@ export default class App extends Component<Props> {
   }
 
   async componentDidMount() {
-
-    // If you want to update devices below Android 5, they have SSL issues with some servers.
-    // You will get a protocol error unless you patch the SSL Provider.
-    // This will fail if they don't have Google Play Services installed though.
-    // You can optionally force the patch on Android 5+ with boolean param 1
-    // You can also optionally display a Google dialog for user repair (if possible) with boolean param 2
-    UpdateAPK.patchSSLProvider() 
-      .then(ret => {
-
-        // This means 
-        console.log("SSL Provider Patch proceeded without error");
-      })
-      .catch(rej => {
-
-        // Modern SSL servers have gotten more strict about which SSL/TLS protocols/versions they allow.
-        // If you arrived here, you have an old device with an unpatchable SSL Provider, your downloads will probably fail.
-        // You should provide some sort of messaging to these users or provide updates over HTTP as needed
-        // Luckily this only applies to Android 4.x without Google Play Services, a very small percentage.
-        console.log("SSL Provider patch failed", rej);
-        let message = "Old Android API, and SSL Provider could not be patched.";
-        if (rej.message.includes("repairable")) {
-
-          // In this particular case the user may even be able to fix it with a Google Play Services update
-          message +=
-            " This is repairable on this device though." +
-            " You should send the users to the Play Store to update Play Services...";
-          Alert.alert("Possible SSL Problem", message);
-          UpdateAPK.patchSSLProvider(false, true); // This will ask Google Play Services to help the user repair
-        } else {
-          Alert.alert("Possible SSL Problem", message);
-        }
-      });
-
       UpdateAPK.getApps().then(apps => {
         console.log("Installed Apps: ", JSON.stringify(apps));
         this.setState({ allApps: apps});

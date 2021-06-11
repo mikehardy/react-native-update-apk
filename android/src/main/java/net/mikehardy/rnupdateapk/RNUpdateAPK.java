@@ -8,8 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
+import androidx.core.content.FileProvider;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -18,10 +18,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.security.ProviderInstaller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -163,34 +159,6 @@ public class RNUpdateAPK extends ReactContextBaseJavaModule {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setDataAndType(Uri.parse("file://" + file), "application/vnd.android.package-archive");
             reactContext.startActivity(intent);
-        }
-    }
-
-    @ReactMethod
-    public void patchSSLProvider(boolean force, boolean dialogIfRepairable, Promise p) {
-
-        // This is unnecessary for Android API20+, skip unless forced
-        if (!force && Build.VERSION.SDK_INT > 20) {
-            p.resolve(true);
-            return;
-        }
-
-        try {
-            ProviderInstaller.installIfNeeded(reactContext);
-            p.resolve(true);
-        } catch (GooglePlayServicesRepairableException e) {
-            // Thrown when Google Play Services is not installed, up-to-date, or enabled
-            // Show dialog to allow users to install, update, or otherwise enable Google Play services.
-            if (dialogIfRepairable) {
-                GoogleApiAvailability.getInstance().getErrorDialog(getCurrentActivity(), e.getConnectionStatusCode(), 0);
-            }
-            String message = "Google Play Services repairable but not usable right now";
-            Log.e("SecurityException", message);
-            p.reject(new Throwable(message));
-        } catch (GooglePlayServicesNotAvailableException e) {
-            String message = "Google Play Services not available";
-            Log.e("SecurityException", message);
-            p.reject(new Throwable(message));
         }
     }
 
