@@ -30,8 +30,8 @@
     "react-native-fs": "^2.16.6"
   },
   "devDependencies": {
-    "@react-native-community/cli": "^4.13.0",
-    "np": "^6.5.0",
+    "@react-native-community/cli": "^5.0.1",
+    "np": "^7.5.0",
     "prettier": "^2.1.2"
   },
   "nativePackage": true,
