@@ -13,6 +13,19 @@ export class UpdateAPK {
 
   get = (url, success, error, options = {}) => {
     fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          let message;
+          if (response.statusText) {
+            message = `${response.url}  ${response.statusText}`
+          }
+          else {
+            message = `${response.url} Status Code:${response.status}`
+          }
+          throw Error(message);
+        }
+        return response;
+      })
       .then(response => response.json())
       .then(json => {
         success && success(json);
@@ -104,7 +117,7 @@ export class UpdateAPK {
 
     ret.promise
       .then(res => {
-        if (res['statusCode'] >= 400 && res['statusCode'] <= 599){
+        if (res['statusCode'] >= 400 && res['statusCode'] <= 599) {
           throw "Failed to Download APK. Server returned with " + res['statusCode'] + " statusCode";
         }
         console.log("RNUpdateAPK::downloadApk - downloadApkEnd");
