@@ -191,6 +191,8 @@ export class UpdateAPK {
           }
         });
       }
+    } else {
+      this.options.notNeedUpdateApp && this.options.notNeedUpdateApp();
     }
   };
 
