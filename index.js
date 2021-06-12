@@ -1,6 +1,7 @@
 "use strict";
 
 import { NativeModules, Platform } from "react-native";
+import semverLt from 'semver/functions/lt'
 
 const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
@@ -13,6 +14,19 @@ export class UpdateAPK {
 
   get = (url, success, error, options = {}) => {
     fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          let message;
+          if (response.statusText) {
+            message = `${response.url}  ${response.statusText}`
+          }
+          else {
+            message = `${response.url} Status Code:${response.status}`
+          }
+          throw Error(message);
+        }
+        return response;
+      })
       .then(response => response.json())
       .then(json => {
         success && success(json);
@@ -21,6 +35,7 @@ export class UpdateAPK {
         error && error(err);
       });
   };
+
 
   getApkVersion = () => {
     if (jobId !== -1) {
@@ -46,9 +61,9 @@ export class UpdateAPK {
       console.log('RNUpdateAPK::getApkVersionSuccess - outdated based on code, local/remote: ' + RNUpdateAPK.versionCode + "/" + remote.versionCode);
       outdated = true;
     }
-    if (!remote.versionCode && (RNUpdateAPK.versionName !== remote.versionName)) {
+    if (!remote.versionCode && semverLt(RNUpdateAPK.versionName, remote.versionName)) {
       console.log('RNUpdateAPK::getApkVersionSuccess - APK outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + remote.versionName);
-      outdated = true;
+      outdated = true
     }
     if (outdated) {
       if (remote.forceUpdate) {
@@ -104,7 +119,7 @@ export class UpdateAPK {
 
     ret.promise
       .then(res => {
-        if (res['statusCode'] >= 400 && res['statusCode'] <= 599){
+        if (res['statusCode'] >= 400 && res['statusCode'] <= 599) {
           throw "Failed to Download APK. Server returned with " + res['statusCode'] + " statusCode";
         }
         console.log("RNUpdateAPK::downloadApk - downloadApkEnd");
@@ -166,7 +181,9 @@ export class UpdateAPK {
     const result = data.results[0];
     const version = result.version;
     const trackViewUrl = result.trackViewUrl;
-    if (version !== RNUpdateAPK.versionName) {
+
+    if (semverLt(RNUpdateAPK.versionName, version)) {
+      console.log('RNUpdateAPK::getAppStoreVersionSuccess - outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + version);
       if (this.options.needUpdateApp) {
         this.options.needUpdateApp(isUpdate => {
           if (isUpdate) {
@@ -174,6 +191,8 @@ export class UpdateAPK {
           }
         });
       }
+    } else {
+      this.options.notNeedUpdateApp && this.options.notNeedUpdateApp();
     }
   };
 
