@@ -1,6 +1,7 @@
 "use strict";
 
 import { NativeModules, Platform } from "react-native";
+import semverLt from 'semver/functions/lt'
 
 const RNUpdateAPK = NativeModules.RNUpdateAPK;
 
@@ -35,27 +36,6 @@ export class UpdateAPK {
       });
   };
 
-  // 1.0 vs 1.1 return -1
-  // 2.2 vs 2.1 return 1
-  // 2.2.1 vs 2.2.01 return 0
-  checkVersion = (ver1, ver2) => {
-    const v1Parts = ver1.split('.').map(e => parseInt(e, 10));
-    const v2Parts = ver2.split('.').map(e => parseInt(e, 10));
-    let len = Math.max(v1Parts.length,v2Parts.length)
-    for (let i = 0; i < len; i++) {
-      const v1 = v1Parts[i] || 0;
-      const v2 = v2Parts[i] || 0;
-      if (v1 === v2) {
-        continue;
-      } else if (v1 > v2) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-    return 0;
-  }
-
 
   getApkVersion = () => {
     if (jobId !== -1) {
@@ -81,12 +61,9 @@ export class UpdateAPK {
       console.log('RNUpdateAPK::getApkVersionSuccess - outdated based on code, local/remote: ' + RNUpdateAPK.versionCode + "/" + remote.versionCode);
       outdated = true;
     }
-    if (!remote.versionCode) {
-      outdated = RNUpdateAPK.versionName !== remote.versionName
-      if(this.options.compareVersionNameByParts){
-        outdated = this.checkVersion(RNUpdateAPK.versionName,remote.versionName) === -1
-      }
-      outdated && console.log('RNUpdateAPK::getApkVersionSuccess - APK outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + remote.versionName);
+    if (!remote.versionCode && semverLt(RNUpdateAPK.versionName, remote.versionName)) {
+      console.log('RNUpdateAPK::getApkVersionSuccess - APK outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + remote.versionName);
+      outdated = true
     }
     if (outdated) {
       if (remote.forceUpdate) {
@@ -205,11 +182,7 @@ export class UpdateAPK {
     const version = result.version;
     const trackViewUrl = result.trackViewUrl;
 
-    let updateAvailable = version !== RNUpdateAPK.versionName
-    if(this.options.compareVersionNameByParts){
-      updateAvailable = this.checkVersion(RNUpdateAPK.versionName,version) === -1
-    }
-    if (updateAvailable) {
+    if (semverLt(RNUpdateAPK.versionName, version)) {
       console.log('RNUpdateAPK::getAppStoreVersionSuccess - outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + version);
       if (this.options.needUpdateApp) {
         this.options.needUpdateApp(isUpdate => {
