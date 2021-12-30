@@ -32,7 +32,8 @@ export class UpdateAPK {
         success && success(json);
       })
       .catch(err => {
-        error && error(err);
+        //error && error(err);
+        console.log('gerVersionError',err)
       });
   };
 
