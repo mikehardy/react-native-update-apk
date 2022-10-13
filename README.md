@@ -1,9 +1,9 @@
+# React Native Update APK
+
 [![npm version](https://badge.fury.io/js/rn-update-apk.svg)](http://badge.fury.io/js/rn-update-apk)
 [![npm total downloads](https://img.shields.io/npm/dt/rn-update-apk.svg)](https://img.shields.io/npm/dt/rn-update-apk.svg)
 [![npm monthly downloads](https://img.shields.io/npm/dm/rn-update-apk.svg)](https://img.shields.io/npm/dm/rn-update-apk.svg)
 [![npm weekly downloads](https://img.shields.io/npm/dw/rn-update-apk.svg)](https://img.shields.io/npm/dw/rn-update-apk.svg)
-
-# React Native Update APK
 
 Easily check for new APKs and install them in React Native.
 

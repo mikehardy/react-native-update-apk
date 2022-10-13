@@ -6,7 +6,7 @@
 - BREAKING: forward port to AndroidX, depends on androidx.appcompat only now
 - BREAKING: use semver.lt method to compare versions (PR #41, thanks @gaodeng!)
 
-If you need to support Android 4.x with APK updates over SSL, do not update to v5 here. 
+If you need to support Android 4.x with APK updates over SSL, do not update to v5 here.
 
 If you have versions that are not semver-compatible, fix those so that installed apps and your updates
 have semver-compatible versions, and then update to v5 here.
