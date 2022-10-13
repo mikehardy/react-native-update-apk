@@ -34,16 +34,25 @@ fi
 \rm -fr example
 
 # Make the new example
-npx react-native init example
+npx react-native init example --skip-install
 pushd example
+\rm -fr .ruby-version .bundle Gemfile
+yarn
 yarn add https://github.com/mikehardy/react-native-update-apk.git
 yarn add react-native-fs
 
-sed -i -e $'s/ext {$/ext {\\\n        appCompatVersion = "1.3.0"/' android/build.gradle
-rm -f android/build.gradle??
+# sed -i -e $'s/ext {$/ext {\\\n        appCompatVersion = "1.3.0"/' android/build.gradle
+# rm -f android/build.gradle??
 
 sed -i -e $'s/storeFile file(\'debug.keystore\')/storeFile rootProject.file("keystores\/debug.keystore")/' android/app/build.gradle
+rm -f android/app/build.gradle??
 
+# Why is this needed for react-native 0.70.3 ?
+echo '*.xcworkspace' >> .gitignore
+
+pushd ios
+pod install
+popd
 
 # Copy the important files back in
 popd
